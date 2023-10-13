@@ -16,7 +16,7 @@ public class CustomerBUS {
     public void view(){
         
     }
-    
+
     public void search(){
         
     }
@@ -26,5 +26,7 @@ public class CustomerBUS {
         return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
+    
+    private int test;
     
 }
