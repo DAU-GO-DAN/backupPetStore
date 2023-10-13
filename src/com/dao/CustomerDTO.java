@@ -9,5 +9,7 @@ package com.dao;
  * @author DUC PHU
  */
 public class CustomerDTO {
+    private String id;
+    private String name;
     
 }
