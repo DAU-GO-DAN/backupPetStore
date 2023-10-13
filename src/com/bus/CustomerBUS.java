@@ -13,8 +13,7 @@ public class CustomerBUS {
     public CustomerBUS() {
     }
     
-    public void add()
-    {
+    public void view(){
         
     }
 }
