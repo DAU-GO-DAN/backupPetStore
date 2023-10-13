@@ -16,6 +16,10 @@ public class CustomerBUS {
     public void view(){
         
     }
+    
+    public void search(){
+        
+    }
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
