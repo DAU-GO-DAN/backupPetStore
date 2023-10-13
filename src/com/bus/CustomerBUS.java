@@ -23,4 +23,6 @@ public class CustomerBUS {
     }
     
     
+    private int test;
+    
 }
