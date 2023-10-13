@@ -46,5 +46,9 @@ public class CustomerDTO {
         this.address = address;
     }
     
+    public void abc()
+    {
+        
+    }
     
 }
