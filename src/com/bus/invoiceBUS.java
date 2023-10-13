@@ -11,6 +11,7 @@ package com.bus;
 public class invoiceBUS {
 
     public invoiceBUS() {
+        
     }
     
 }

@@ -13,4 +13,8 @@ public class CustomerBUS {
     public CustomerBUS() {
     }
     
+    public void add()
+    {
+        
+    }
 }
