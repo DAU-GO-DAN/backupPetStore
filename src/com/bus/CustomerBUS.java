@@ -17,6 +17,10 @@ public class CustomerBUS {
         
     }
 
+    public void search(){
+        
+    }
+
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
