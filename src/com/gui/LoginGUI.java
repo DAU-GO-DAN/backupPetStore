@@ -34,7 +34,6 @@ public class LoginGUI extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         lLogo = new javax.swing.JLabel();
-        lPetStore = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lpasswordWarn = new javax.swing.JLabel();
         lusernameWarn = new javax.swing.JLabel();
@@ -99,9 +98,6 @@ public class LoginGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lPetStore.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        lPetStore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Logo.png"))); // NOI18N
-
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/image/Logo.png"))); // NOI18N
 
@@ -118,9 +114,6 @@ public class LoginGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lPetStore)
-                        .addGap(165, 165, 165))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(113, 113, 113))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -136,9 +129,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lPetStore)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -233,7 +224,6 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lLogo;
-    private javax.swing.JLabel lPetStore;
     private javax.swing.JLabel lpassword;
     private javax.swing.JLabel lpasswordWarn;
     private javax.swing.JLabel lusername;
