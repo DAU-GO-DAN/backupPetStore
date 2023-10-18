@@ -46,7 +46,6 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 204, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chan cho.png"))); // NOI18N
         jButton1.setText("Đăng nhập");
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
