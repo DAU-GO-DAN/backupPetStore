@@ -26,6 +26,7 @@ public class LoginGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sVGImage1 = new com.gui.SVGImage();
         jPanel1 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
         lusername = new javax.swing.JLabel();
@@ -33,7 +34,6 @@ public class LoginGUI extends javax.swing.JFrame {
         tfUsername = new javax.swing.JTextField();
         tfPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
-        lLogo = new javax.swing.JLabel();
         lStoreName = new javax.swing.JLabel();
         lpasswordWarn = new javax.swing.JLabel();
         lusernameWarn = new javax.swing.JLabel();
@@ -77,24 +77,15 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 0));
 
-        lLogo.setBackground(new java.awt.Color(255, 252, 245));
-        lLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/image/logohinh.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 145, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 136, Short.MAX_VALUE)
         );
 
         lStoreName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -222,12 +213,12 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lLogo;
     private javax.swing.JLabel lStoreName;
     private javax.swing.JLabel lpassword;
     private javax.swing.JLabel lpasswordWarn;
     private javax.swing.JLabel lusername;
     private javax.swing.JLabel lusernameWarn;
+    private com.gui.SVGImage sVGImage1;
     private javax.swing.JPasswordField tfPassword;
     private javax.swing.JTextField tfUsername;
     // End of variables declaration//GEN-END:variables
