@@ -68,7 +68,6 @@ public class LoginGUI extends javax.swing.JFrame {
         });
 
         jPasswordField1.setBackground(new java.awt.Color(255, 204, 102));
-        jPasswordField1.setText("jPasswordField1");
         jPasswordField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
