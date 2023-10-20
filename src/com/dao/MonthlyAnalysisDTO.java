@@ -8,6 +8,6 @@ package com.dao;
  *
  * @author DUC PHU
  */
-public class MonthAnalysisDTO {
+public class MonthlyAnalysisDTO {
     
 }

@@ -22,12 +22,12 @@ import javax.swing.JOptionPane;
  *
  * @author DUC PHU
  */
-public class MonthAnalysisDAO {
+public class MonthlyAnalysisDAO {
     Connection conn = null;
     Statement stmt = null;
     ResultSet rs = null;
 
-    public MonthAnalysisDAO() {
+    public MonthlyAnalysisDAO() {
         conn = MyConnection.getConnection();
     }
     
