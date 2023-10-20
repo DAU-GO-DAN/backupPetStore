@@ -14,10 +14,10 @@ import java.sql.SQLException;
 public class MyConnection {
     private static Connection connection = null;
     static private String user = "sa";
-    static private String password = "123456";
-    static private String serverName = "FX506LH\\SQLEXPRESS";
+    static private String password = "123123";
+    static private String serverName = "localhost";
     static private String portNumber = "1433";
-    static private String DBName = "PetStoreSystem";
+    static private String DBName = "PetStoreProject";
     
     public static Connection getConnection()
     {
@@ -42,4 +42,5 @@ public class MyConnection {
         }
         return connection;
     }
+    
 }
