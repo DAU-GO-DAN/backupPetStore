@@ -18,6 +18,20 @@ public class SoldPetDTO extends ProductDTO{
     private LocalDate date;
     private String customerID;
 
+    public SoldPetDTO() {
+        super();
+    }
+
+    public SoldPetDTO(String gender, String breedId, String color, int weight, LocalDate date, String customerID) {
+        super();
+        this.gender = gender;
+        this.breedId = breedId;
+        this.color = color;
+        this.weight = weight;
+        this.date = date;
+        this.customerID = customerID;
+    }
+    
     public String getGender() {
         return gender;
     }

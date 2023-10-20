@@ -14,6 +14,34 @@ public class PetOnStoreDTO extends ProductDTO{
     private String color;
     private int weight;
 
+    public PetOnStoreDTO() {
+        super();
+    }
+
+    public PetOnStoreDTO(String gender, String breedId, String color, int weight) {
+        super();
+        this.gender = gender;
+        this.breedId = breedId;
+        this.color = color;
+        this.weight = weight;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBreedId(String breedId) {
+        this.breedId = breedId;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    
     public String getGender() {
         return gender;
     }
