@@ -33,5 +33,45 @@ public class AccountDAO {
         conn = MyConnection.getConnection();
     }
     
+    public ArrayList readAcctList()
+    {
+        ArrayList accountList = new ArrayList<AccountDTO>();
+        try{
+            String qry = "Select * from Account";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            while (rs.next())
+            {
+                AccountDTO accountTemp = new AccountDTO();
+                accountTemp.setUsername(rs.getString("userName"));
+                accountTemp.setUserId(rs.getString("userID"));
+                accountTemp.setPassword(rs.getString("password"));
+                accountTemp.setRole(rs.getString("role"));
+                accountList.add(accountTemp);
+            }
+        }
+        catch (SQLException ex){
+            
+        }
+        return accountList;
+    }
     
+    public AccountDTO loginCheck(String username, String password){
+        AccountDTO accTemp = new AccountDTO();
+        try{
+            String qry = "select * from Account " + "where username = '"+username+"' and password = '"+password+"'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            if(rs.next()){
+                accTemp.setUsername(rs.getString("userName"));
+                accTemp.setUserId(rs.getString("userID"));
+                accTemp.setPassword(rs.getString("password"));
+                accTemp.setRole(rs.getString("role"));
+            }
+        }
+        catch(SQLException e){
+            
+        }
+        return accTemp;
+    }
 }

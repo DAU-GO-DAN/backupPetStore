@@ -12,7 +12,18 @@ public class AccountDTO {
     private String username;
     private String password;
     private String userId;
+    private String role;
 
+    public AccountDTO() {
+    }
+
+    public AccountDTO(String username, String password, String userId, String role) {
+        this.username = username;
+        this.password = password;
+        this.userId = userId;
+        this.role = role;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -36,6 +47,13 @@ public class AccountDTO {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     
 }
