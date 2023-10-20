@@ -4,18 +4,37 @@
  */
 package com.gui;
 
+import com.dao.AccountDTO;
+import static java.awt.Color.black;
+import static java.awt.Color.red;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+
 /**
  *
  * @author huynh
  */
 public class HomeGUI extends javax.swing.JFrame {
-
+    //Global variable
+    ArrayList<JLabel> labelList = new ArrayList<>();
+    
     /**
      * Creates new form HomeGUI
      */
-    public HomeGUI() {
+    
+    public HomeGUI(AccountDTO acc) {
         initComponents();
+        roleDivision(acc);
+        colorChangeTitle();
+        svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
+        svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,42 +45,158 @@ public class HomeGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        pNavigator = new javax.swing.JPanel();
+        lproduct = new javax.swing.JLabel();
+        linvoice = new javax.swing.JLabel();
+        svgLogo = new com.gui.SvgImage();
+        lCustomer = new javax.swing.JLabel();
+        lEmployee = new javax.swing.JLabel();
+        lAccount = new javax.swing.JLabel();
+        limport = new javax.swing.JLabel();
+        lSupplier = new javax.swing.JLabel();
+        lAnalysis = new javax.swing.JLabel();
+        svgLogout = new com.gui.SvgImage();
+        lAccInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        pNavigator.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("jLabel1");
+        lproduct.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lproduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lproduct.setText("Sản phẩm");
+        lproduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lproduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lproductMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setText("jLabel2");
+        linvoice.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        linvoice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        linvoice.setText("Hóa đơn");
+        linvoice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        linvoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linvoiceMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel3");
+        lCustomer.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lCustomer.setText("Khách hàng");
+        lCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lCustomerMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+        lEmployee.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lEmployee.setText("Nhân viên");
+        lEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lEmployeeMouseClicked(evt);
+            }
+        });
+
+        lAccount.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lAccount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAccount.setText("Tài khoản");
+        lAccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lAccountMouseClicked(evt);
+            }
+        });
+
+        limport.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        limport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        limport.setText("Nhập hàng");
+        limport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        limport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limportMouseClicked(evt);
+            }
+        });
+
+        lSupplier.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lSupplier.setText("Nhà cung cấp");
+        lSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lSupplierMouseClicked(evt);
+            }
+        });
+
+        lAnalysis.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        lAnalysis.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAnalysis.setText("Thống kê");
+        lAnalysis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lAnalysis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lAnalysisMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pNavigatorLayout = new javax.swing.GroupLayout(pNavigator);
+        pNavigator.setLayout(pNavigatorLayout);
+        pNavigatorLayout.setHorizontalGroup(
+            pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNavigatorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1063, Short.MAX_VALUE))
+                .addComponent(svgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(linvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(limport, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(lSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lAnalysis, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pNavigatorLayout.createSequentialGroup()
+                        .addGap(0, 80, Short.MAX_VALUE)
+                        .addComponent(svgLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lAccInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+        pNavigatorLayout.setVerticalGroup(
+            pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNavigatorLayout.createSequentialGroup()
+                .addGroup(pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pNavigatorLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(linvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lproduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(limport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lAnalysis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 20, Short.MAX_VALUE))
+                    .addGroup(pNavigatorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pNavigatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pNavigatorLayout.createSequentialGroup()
+                                .addComponent(svgLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lAccInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(svgLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -69,12 +204,14 @@ public class HomeGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pNavigator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pNavigator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 620, Short.MAX_VALUE))
         );
 
@@ -82,6 +219,80 @@ public class HomeGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lproductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lproductMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lproductMouseClicked
+
+    private void linvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linvoiceMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_linvoiceMouseClicked
+
+    private void lCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lCustomerMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lCustomerMouseClicked
+
+    private void lEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lEmployeeMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lEmployeeMouseClicked
+
+    private void lAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAccountMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lAccountMouseClicked
+
+    private void limportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limportMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_limportMouseClicked
+
+    private void lSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lSupplierMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_lSupplierMouseClicked
+
+    private void lAnalysisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAnalysisMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lAnalysisMouseClicked
+
+    private void colorChangeTitle(){
+        //Thêm vào mảng label để làm colorChange cho title 
+        labelList.add(lproduct);
+        labelList.add(lAccount);
+        labelList.add(lAnalysis);
+        labelList.add(lCustomer);
+        labelList.add(lEmployee);
+        labelList.add(lSupplier);
+        labelList.add(limport);
+        labelList.add(linvoice);
+        for(JLabel label : labelList){
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e){
+                    for(JLabel label : labelList){
+                        label.setForeground(black);
+                        label.setFont(label.getFont().deriveFont(-1));
+                    }
+                    label.setForeground(red);
+                    label.setFont(label.getFont().deriveFont(Font.BOLD));
+                }
+            });
+        }
+    }
+    
+    private void roleDivision(AccountDTO acc){
+        if(acc.getRole().equalsIgnoreCase("nhân viên")){
+            lAccount.setEnabled(true);
+            lAnalysis.setEnabled(true);
+            lEmployee.setEnabled(true);
+            limport.setEnabled(true);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -113,15 +324,23 @@ public class HomeGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeGUI().setVisible(true);
+//                new HomeGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lAccInfo;
+    private javax.swing.JLabel lAccount;
+    private javax.swing.JLabel lAnalysis;
+    private javax.swing.JLabel lCustomer;
+    private javax.swing.JLabel lEmployee;
+    private javax.swing.JLabel lSupplier;
+    private javax.swing.JLabel limport;
+    private javax.swing.JLabel linvoice;
+    private javax.swing.JLabel lproduct;
+    private javax.swing.JPanel pNavigator;
+    private com.gui.SvgImage svgLogo;
+    private com.gui.SvgImage svgLogout;
     // End of variables declaration//GEN-END:variables
 }

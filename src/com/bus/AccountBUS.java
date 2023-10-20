@@ -4,10 +4,28 @@
  */
 package com.bus;
 
+import com.dao.AccountDAO;
+import com.dao.AccountDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author huynh
  */
 public class AccountBUS {
+    ArrayList<AccountDTO> accList;
+    static AccountDAO accDAO = new AccountDAO();
+
+    public AccountBUS() {
+        readData();
+    }
     
+    void readData(){
+        if(accList == null) accList = new ArrayList<>();
+        accList = accDAO.readAcctList();
+    }
+    
+    public AccountDTO loginCheck(String username, String password){
+        return accDAO.loginCheck(username, password);
+    }
 }

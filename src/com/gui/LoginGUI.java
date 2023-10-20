@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.gui;
 
-/**
- *
- * @author huynh
- */
+import com.bus.AccountBUS;
+import com.dao.AccountDTO;
+import javax.swing.JOptionPane;
+
 public class LoginGUI extends javax.swing.JFrame {
 
     /**
@@ -148,13 +144,26 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-//        AccountBUS bus = new AccountBUS();
-//        
-//        String usernameTest = tfUsername.getText();
-//        char[] passwordChars = tfPassword.getPassword();
-//        String password = String.valueOf(passwordChars);
+        AccountBUS accBUS = new AccountBUS();
         
-        
+        String usernameCheck = tfUsername.getText();
+        char[] passwordChars = tfPassword.getPassword();
+        String passwordCheck = String.valueOf(passwordChars);
+        //loginCheck là hàm trả về 1 vai trò của account đó
+        if(accBUS.loginCheck(usernameCheck, passwordCheck).equalsIgnoreCase("admin")){
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+            this.dispose();
+            HomeGUI home = new HomeGUI(accBUS.loginCheck(usernameCheck, passwordCheck));
+            home.setVisible(true);
+        }else if(accBUS.loginCheck(usernameCheck, passwordCheck).equalsIgnoreCase("nhân viên")){
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+            this.dispose();
+            HomeGUI home = new HomeGUI(accBUS.loginCheck(usernameCheck, passwordCheck));
+            
+            home.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không đúng");
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
