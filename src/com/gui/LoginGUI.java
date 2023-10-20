@@ -148,9 +148,13 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        String usernameTest = tfUsername.getText();
-        char[] passwordChars = tfPassword.getPassword();
-        String password = String.valueOf(passwordChars);
+//        AccountBUS bus = new AccountBUS();
+//        
+//        String usernameTest = tfUsername.getText();
+//        char[] passwordChars = tfPassword.getPassword();
+//        String password = String.valueOf(passwordChars);
+        
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
