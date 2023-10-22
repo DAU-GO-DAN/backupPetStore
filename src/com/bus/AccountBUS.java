@@ -25,7 +25,11 @@ public class AccountBUS {
         accList = accDAO.readAcctList();
     }
     
-    public AccountDTO loginCheck(String username, String password){
+    public AccountDTO getAccount(String username, String password){
+        return accDAO.getAccount(username, password);
+    }
+    
+    public boolean loginCheck(String username, String password){
         return accDAO.loginCheck(username, password);
     }
 }

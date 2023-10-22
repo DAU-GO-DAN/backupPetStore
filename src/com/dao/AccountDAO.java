@@ -56,7 +56,7 @@ public class AccountDAO {
         return accountList;
     }
     
-    public AccountDTO loginCheck(String username, String password){
+    public AccountDTO getAccount(String username, String password){
         AccountDTO accTemp = new AccountDTO();
         try{
             String qry = "select * from Account " + "where username = '"+username+"' and password = '"+password+"'";
@@ -73,5 +73,21 @@ public class AccountDAO {
             
         }
         return accTemp;
+    }
+    
+    public boolean loginCheck(String username, String password){
+        boolean flag = false; 
+        try{
+            String qry = "select * from Account " + "where username = '"+username+"' and password = '"+password+"'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            if(rs.next()){
+                flag = true;
+            }
+        }
+        catch(SQLException e){
+            
+        }
+        return flag;
     }
 }

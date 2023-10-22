@@ -2,6 +2,8 @@ package com.gui;
 
 import com.bus.AccountBUS;
 import com.dao.AccountDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class LoginGUI extends javax.swing.JFrame {
@@ -49,6 +51,11 @@ public class LoginGUI extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
+            }
+        });
 
         lusername.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lusername.setText("Tên đăng nhập");
@@ -63,12 +70,22 @@ public class LoginGUI extends javax.swing.JFrame {
                 tfUsernameActionPerformed(evt);
             }
         });
+        tfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfUsernameKeyPressed(evt);
+            }
+        });
 
         tfPassword.setBackground(new java.awt.Color(255, 204, 102));
         tfPassword.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         tfPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfPasswordActionPerformed(evt);
+            }
+        });
+        tfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfPasswordKeyPressed(evt);
             }
         });
 
@@ -150,16 +167,10 @@ public class LoginGUI extends javax.swing.JFrame {
         char[] passwordChars = tfPassword.getPassword();
         String passwordCheck = String.valueOf(passwordChars);
         //loginCheck là hàm trả về 1 vai trò của account đó
-        if(accBUS.loginCheck(usernameCheck, passwordCheck).equalsIgnoreCase("admin")){
+        if(accBUS.loginCheck(usernameCheck, passwordCheck)){
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
             this.dispose();
-            HomeGUI home = new HomeGUI(accBUS.loginCheck(usernameCheck, passwordCheck));
-            home.setVisible(true);
-        }else if(accBUS.loginCheck(usernameCheck, passwordCheck).equalsIgnoreCase("nhân viên")){
-            JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-            this.dispose();
-            HomeGUI home = new HomeGUI(accBUS.loginCheck(usernameCheck, passwordCheck));
-            
+            HomeGUI home = new HomeGUI(accBUS.getAccount(usernameCheck, passwordCheck));
             home.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null, "Thông tin tài khoản không đúng");
@@ -168,7 +179,29 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfPasswordActionPerformed
+
+    private void tfUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsernameKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfPassword.requestFocus();
+        }
+    }//GEN-LAST:event_tfUsernameKeyPressed
+
+    private void tfPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPasswordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnLogin.requestFocus();
+        }
+    }//GEN-LAST:event_tfPasswordKeyPressed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnLoginActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ""));
+        }
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     /**
      * @param args the command line arguments
