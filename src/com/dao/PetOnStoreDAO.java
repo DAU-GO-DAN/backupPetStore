@@ -88,7 +88,8 @@ public class PetOnStoreDAO {
                     + " gender = N'" +pet.getGender()+ "', "
                     + " breedID = '" +pet.getBreedId()+"', "
                     + " weight = " +pet.getWeight()+", "
-                    + " color = N'" +pet.getColor()+"'";
+                    + " color = N'" +pet.getColor()+"'"
+                    + " where petID = '" +pet.getId()+ "'";;
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }

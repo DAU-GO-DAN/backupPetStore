@@ -83,11 +83,28 @@ public class PetProductDAO {
                     + " Description = N'" +product.getDescription()+"', "
                     + " supplierID = '" +product.getSupplierId()+"', "
                     + " categoryID = '" +product.getCategoryID()+"', "
-                    + " inStock = " +product.getInStock()+"";
+                    + " inStock = " +product.getInStock()+""
+                    + " where ID = '" +product.getId()+ "'";;
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }
         catch (SQLException ex)
+        {
+            
+        }
+    }
+    
+    public void updateQuantity(String ID, int quantity)
+    {
+        try{
+            String qry = "Update PetProduct "
+                    + " set "
+                    + " inStock =  inStock + " +quantity
+                    + " where ID = '" +ID+ "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+        }
+        catch(SQLException ex)
         {
             
         }

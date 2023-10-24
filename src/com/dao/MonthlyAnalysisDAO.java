@@ -57,12 +57,12 @@ public class MonthlyAnalysisDAO {
         }
     }
     
-    public boolean checkMonth(int year, int month)
+    public boolean checkMonth(int year, int month, String productID)
     {
         boolean isExist = false;
         try{
             String qry = "select * from MonthlyAnalysis "
-                    + " where month = "+month+ " and year = "+year+ "";
+                    + " where month = "+month+ " and year = "+year+ " and productID = '" +productID+ "'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
             if(rs.next())
@@ -75,6 +75,23 @@ public class MonthlyAnalysisDAO {
             
         }
         return isExist;
+    }
+    
+    public void update(int year, int month, String productID, long soldQuantity, long profit)
+    {
+        try{
+            String qry = " update MonthlyAnalysis "
+                    + " set "
+                    + " quantity = quantity + " +soldQuantity
+                    + ", " + " profit = profit + "+profit
+                    + " where month = "+month+ " and year = "+year+ " and productID = '" +productID+ "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+        }
+        catch(SQLException ex)
+        {
+            
+        }
     }
     
     public ArrayList readAnalysisList()

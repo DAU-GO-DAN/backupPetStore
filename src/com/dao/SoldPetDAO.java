@@ -89,7 +89,8 @@ public class SoldPetDAO {
                     + " breedID = '" +pet.getBreedId()+"', "
                     + " weight = " +pet.getWeight()+", "
                     + " color = N'" +pet.getColor()+"', "
-                    + " cusID = '" +pet.getCustomerID()+"'";
+                    + " cusID = '" +pet.getCustomerID()+"'"
+                    + " where petID = '" +pet.getId()+ "'";;
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }

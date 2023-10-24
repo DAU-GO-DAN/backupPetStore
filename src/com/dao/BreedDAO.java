@@ -31,5 +31,77 @@ public class BreedDAO {
         conn = MyConnection.getConnection();
     }
     
+    public void add(BreedDTO breed)
+    {
+        try{
+            String qry = "insert into Breed value ("
+                    + "'" + breed.getId() + "'" 
+                    + ", "+ "N'" + breed.getName() + "'"  
+                    + ", "+ "N'" + breed.getRegion() + "'"
+                    + ")";
+            stmt = conn.createStatement();
+            int rowsAffected = stmt.executeUpdate(qry);
+            if (rowsAffected == 1) {
+                JOptionPane.showMessageDialog(null, "Thêm breed thành công!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Thêm breed thất bại!");
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+    }
     
+    public void delete(String ID)
+    {
+        try{
+            String qry = "delete from Breed "
+                    + " where breedID = '" +ID+ "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+        }
+        catch(SQLException ex){
+            
+        }
+    }
+    
+    public void edit(BreedDTO breed)
+    {
+        try{
+            String qry = " Update Breed "
+                    + " set "
+                    + " breedName = N'" +breed.getName()+ "', "
+                    + " region = N'" + breed.getRegion()+ "', "
+                    + " where breedID = '" +breed.getId()+ "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+        }
+        catch(SQLException ex){
+            
+        }
+    }
+    
+    public ArrayList readBreedList()
+    {
+        ArrayList list = new ArrayList<BreedDTO>();
+        try{
+            String qry = "select * from Breed";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next())
+            {
+                BreedDTO breed = new BreedDTO();
+                breed.setId(rs.getString("breedID"));
+                breed.setName(rs.getString("breedName"));
+                breed.setRegion(rs.getString("region"));
+                list.add(breed);
+            }
+        }
+        catch(SQLException ex)
+        {
+            
+        }
+        return list;
+    }
 }

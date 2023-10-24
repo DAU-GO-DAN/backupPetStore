@@ -14,6 +14,10 @@ public class MonthlyAnalysisDTO {
     long importPrice, soldPrice, profit;
 
     public MonthlyAnalysisDTO() {
+        this.importPrice = 0;
+        this.soldPrice = 0;
+        this.soldQuantity = 0;
+        this.profit = 0;
     }
 
     public MonthlyAnalysisDTO(String productID, int month, int year, int soldQuantity, long importPrice, long soldPrice, long profit) {
