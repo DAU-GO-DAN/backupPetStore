@@ -33,19 +33,17 @@ public class PetProductDAO {
     
     public void add(PetProductDTO product)
     {
-        try{
-            String qry = "insert into PetProduct value ("
-                    + "'" + product.getId() + "'" 
-                    + ", "+ "N'" + product.getName() + "'" 
-                    + ", "+ "" + product.getSoldPrice() + "" 
-                    + ", "+ "" + product.getImportPrice() + ""
-                    + ", "+ "N'" + product.getDescription() + "'"
-                    + ", "+ "'" + product.getSupplierId() + "'"
-                    + ", "+ "'" + product.getCategoryID() + "'"
-                    + ", "+ "" + product.getInStock()+ ""
-                    + ")";
-            stmt = conn.createStatement();
-            int rowsAffected = stmt.executeUpdate(qry);
+        String qry = "INSERT INTO PetProduct VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(qry)){
+            pstmt.setString(1, product.getId());
+            pstmt.setString(2, product.getName());
+            pstmt.setDouble(3, product.getSoldPrice());
+            pstmt.setDouble(4, product.getImportPrice());
+            pstmt.setString(5, product.getDescription());
+            pstmt.setString(6, product.getSupplierId());
+            pstmt.setString(7, product.getCategoryID());
+            pstmt.setInt(8, product.getInStock());
+            int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected == 1) {
                 JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công!");
             } else {
@@ -110,13 +108,13 @@ public class PetProductDAO {
         }
     }
     
-    public ArrayList readPetProductList()
+    public ArrayList<PetProductDTO> readPetProductList()
     {
         ArrayList list = new ArrayList<PetProductDTO>();
-        try{
-            String qry = "Select * from PetOnStore";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(qry);
+        String qry = "Select * from PetOnStore";
+        try (PreparedStatement pstmt = conn.prepareStatement(qry)){
+
+            rs = pstmt.executeQuery();
             while(rs.next())
             {
                 PetProductDTO product = new PetProductDTO();
