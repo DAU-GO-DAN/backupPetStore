@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -155,6 +155,9 @@
           </Events>
         </Component>
         <Component class="com.gui.SvgImage" name="svgLogo">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="svgLogo.setSVGImage(&quot;com/image/logohinh.svg&quot;, 80, 80);&#xa;svgLogout.setSVGImage(&quot;com/image/logout.svg&quot;, 30, 30);"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lCustomer">
           <Properties>

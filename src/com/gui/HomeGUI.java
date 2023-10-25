@@ -215,6 +215,9 @@ public class HomeGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
+        svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
+
         mainPanel.setPreferredSize(new java.awt.Dimension(1280, 620));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -255,6 +258,8 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
+        ProductCom product = new ProductCom();
+        mainPanel.add(product);
     }//GEN-LAST:event_lproductMouseClicked
 
     private void linvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linvoiceMouseClicked
