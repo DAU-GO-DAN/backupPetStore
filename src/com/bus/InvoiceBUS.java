@@ -9,5 +9,5 @@ package com.bus;
  * @author huynh
  */
 public class InvoiceBUS {
-    
+    int abc=0;
 }
