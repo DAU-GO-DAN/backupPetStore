@@ -15,12 +15,12 @@ import javax.swing.JFrame;
  *
  * @author DUC PHU
  */
-public class ProductCom extends javax.swing.JPanel {
+public class ProductUI extends javax.swing.JPanel {
 
     /**
      * Creates new form ProductCom
      */
-    public ProductCom() {
+    public ProductUI() {
         initComponents();
     }
 
@@ -89,7 +89,7 @@ public class ProductCom extends javax.swing.JPanel {
         JFrame f = new JFrame();
         f.setSize(1280, 620);
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ProductCom product = new ProductCom();
+        ProductUI product = new ProductUI();
         f.add(product);
         f.setVisible(true);
     }

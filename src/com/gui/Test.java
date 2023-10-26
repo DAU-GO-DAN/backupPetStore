@@ -96,7 +96,7 @@ public class Test extends javax.swing.JFrame {
     {
         this.repaint();
         this.revalidate();
-        ProductCom product = new ProductCom();
+        ProductUI product = new ProductUI();
         this.add(product);
     }
     /**

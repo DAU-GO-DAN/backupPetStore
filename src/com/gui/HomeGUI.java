@@ -258,7 +258,7 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-        ProductCom product = new ProductCom();
+        ProductUI product = new ProductUI();
         mainPanel.add(product);
     }//GEN-LAST:event_lproductMouseClicked
 
