@@ -13,7 +13,7 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public LoginGUI() {
         initComponents();
-        svgLogo.setSVGImage("com/image/logohinh.svg", 200, 190);
+        svgLogoPetStore.setSVGImage("com/image/logohinh.svg", 200, 190);
         svgTitle.setSVGImage("com/image/Logo.svg", 350, 90);
     }
 
@@ -34,7 +34,7 @@ public class LoginGUI extends javax.swing.JFrame {
         tfPassword = new javax.swing.JPasswordField();
         lpasswordWarn = new javax.swing.JLabel();
         lusernameWarn = new javax.swing.JLabel();
-        svgLogo = new com.gui.SvgImage();
+        svgLogoPetStore = new com.gui.SvgImage();
         svgTitle = new com.gui.SvgImage();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,7 +95,7 @@ public class LoginGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(svgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(svgLogoPetStore, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lpassword)
@@ -135,7 +135,7 @@ public class LoginGUI extends javax.swing.JFrame {
                         .addComponent(lpasswordWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(svgLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(svgLogoPetStore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(16, 16, 16)
                 .addComponent(btnLogin)
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -244,7 +244,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lpasswordWarn;
     private javax.swing.JLabel lusername;
     private javax.swing.JLabel lusernameWarn;
-    private com.gui.SvgImage svgLogo;
+    private com.gui.SvgImage svgLogoPetStore;
     private com.gui.SvgImage svgTitle;
     private javax.swing.JPasswordField tfPassword;
     private javax.swing.JTextField tfUsername;
