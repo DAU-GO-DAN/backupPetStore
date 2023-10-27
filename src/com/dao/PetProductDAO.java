@@ -33,16 +33,17 @@ public class PetProductDAO {
     
     public void add(PetProductDTO product)
     {
-        String qry = "INSERT INTO PetProduct VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String qry = "INSERT INTO PetProduct VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(qry)){
             pstmt.setString(1, product.getId());
             pstmt.setString(2, product.getName());
-            pstmt.setDouble(3, product.getSoldPrice());
-            pstmt.setDouble(4, product.getImportPrice());
+            pstmt.setLong(3, product.getSoldPrice());
+            pstmt.setLong(4, product.getImportPrice());
             pstmt.setString(5, product.getDescription());
             pstmt.setString(6, product.getSupplierId());
             pstmt.setString(7, product.getCategoryID());
             pstmt.setInt(8, product.getInStock());
+            pstmt.setString(9, product.getImageUrl());
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected == 1) {
                 JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công!");
@@ -81,8 +82,9 @@ public class PetProductDAO {
                     + " Description = N'" +product.getDescription()+"', "
                     + " supplierID = '" +product.getSupplierId()+"', "
                     + " categoryID = '" +product.getCategoryID()+"', "
-                    + " inStock = " +product.getInStock()+""
-                    + " where ID = '" +product.getId()+ "'";;
+                    + " inStock = " +product.getInStock()+", "
+                    + " imageUrl = '" +product.getImageUrl()+"' "
+                    + " where ID = '" +product.getId()+ "'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }
@@ -126,6 +128,7 @@ public class PetProductDAO {
                 product.setSupplierId(rs.getString("supplierID"));
                 product.setCategoryID(rs.getString("categoryID"));
                 product.setInStock(Integer.parseInt(rs.getString("inStock")));
+                product.setImageUrl(rs.getString("imageUrl"));
                 list.add(product);
                 
             }

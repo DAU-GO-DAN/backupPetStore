@@ -35,21 +35,23 @@ public class PetOnStoreDAO {
     
     public void add(PetOnStoreDTO pet)
     {
-        try{
-            String qry = "insert into PetOnStore value ("
-                    + "'" + pet.getId() + "'" 
-                    + ", "+ "N'" + pet.getName() + "'" 
-                    + ", "+ "" + pet.getSoldPrice() + "" 
-                    + ", "+ "" + pet.getImportPrice() + ""
-                    + ", "+ "N'" + pet.getDescription() + "'"
-                    + ", "+ "'" + pet.getSupplierId() + "'"
-                    + ", "+ "N'" + pet.getGender() + "'"
-                    + ", "+ "'" + pet.getBreedId()+ "'"
-                    + ", "+ "" + pet.getWeight()+ ""
-                    + ", "+ "N'" + pet.getColor() + "'"
-                    + ")";
-            stmt = conn.createStatement();
-            int rowsAffected = stmt.executeUpdate(qry);
+        String qry = "insert into PetOnStore value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try(PreparedStatement pstmt = conn.prepareStatement(qry)){
+        
+            pstmt.setString(1, pet.getId());
+            pstmt.setString(2, pet.getName());
+            pstmt.setLong(3, pet.getSoldPrice());
+            pstmt.setLong(4, pet.getImportPrice());
+            pstmt.setString(5, pet.getDescription());
+            pstmt.setString(6, pet.getSupplierId());
+            pstmt.setString(7, pet.getGender());
+            pstmt.setString(8, pet.getBreedId());
+            pstmt.setInt(9, pet.getWeight());
+            pstmt.setString(10, pet.getColor());
+            pstmt.setString(11, pet.getImageUrl());
+            
+            
+            int rowsAffected = pstmt.executeUpdate(qry);
             if (rowsAffected == 1) {
                 JOptionPane.showMessageDialog(null, "Thêm thú cưng thành công!");
             } else {
@@ -78,6 +80,7 @@ public class PetOnStoreDAO {
     
     public void edit(PetOnStoreDTO pet)
     {
+
         try{
             String qry = "Update PetOnStore "
                     + " set "
@@ -88,8 +91,9 @@ public class PetOnStoreDAO {
                     + " gender = N'" +pet.getGender()+ "', "
                     + " breedID = '" +pet.getBreedId()+"', "
                     + " weight = " +pet.getWeight()+", "
-                    + " color = N'" +pet.getColor()+"'"
-                    + " where petID = '" +pet.getId()+ "'";;
+                    + " color = N'" +pet.getColor()+"', "
+                    + " imageUrl = '" +pet.getImageUrl()+"'"
+                    + " where petID = '" +pet.getId()+ "'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }
@@ -119,6 +123,7 @@ public class PetOnStoreDAO {
                 pet.setBreedId(rs.getString("breedID"));
                 pet.setWeight(Integer.parseInt(rs.getString("weight")));
                 pet.setColor(rs.getString("color"));
+                pet.setImageUrl(rs.getString("imageUrl"));
                 POSList.add(pet);
                 
             }
