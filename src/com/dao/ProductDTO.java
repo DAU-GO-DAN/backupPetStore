@@ -15,7 +15,16 @@ public abstract class ProductDTO {
     private long soldPrice;
     private String description;
     private String supplierId;
+    private String imageUrl;
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
     public String getId() {
         return id;
     }

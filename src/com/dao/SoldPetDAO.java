@@ -44,8 +44,9 @@ public class SoldPetDAO {
                     + ", "+ "'" + pet.getBreedId()+ "'"
                     + ", "+ "" + pet.getWeight()+ ""
                     + ", "+ "N'" + pet.getColor() + "'"
-                    + "'" + pet.getCustomerID() + "'"
-                    + "'" + pet.getDate() + "'"
+                    + ", " + "'" + pet.getCustomerID() + "'"
+                    + ", " + "'" + pet.getDate() + "'"
+                    + ", " + "'" + pet.getImageUrl() + "'"
                     + ")";
             stmt = conn.createStatement();
             int rowsAffected = stmt.executeUpdate(qry);
@@ -89,8 +90,9 @@ public class SoldPetDAO {
                     + " breedID = '" +pet.getBreedId()+"', "
                     + " weight = " +pet.getWeight()+", "
                     + " color = N'" +pet.getColor()+"', "
-                    + " cusID = '" +pet.getCustomerID()+"'"
-                    + " where petID = '" +pet.getId()+ "'";;
+                    + " cusID = '" +pet.getCustomerID()+"', "
+                    + " imageUrl = '" +pet.getImageUrl()+"', "
+                    + " where petID = '" +pet.getId()+ "'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
         }
