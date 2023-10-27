@@ -69,6 +69,8 @@ public class PetOnStoreBUS {
     
     public String generateID()
     {
+        String ID = "";
         String prefix = "";
+        return prefix;
     }
 }
