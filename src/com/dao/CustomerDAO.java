@@ -13,7 +13,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,5 +30,76 @@ public class CustomerDAO {
         conn = MyConnection.getConnection();
     }
     
+    public void add(CustomerDTO cus){
+        try{
+            String qry = "insert into Customer values ('" + cus.getId() + 
+                    "', N'" + cus.getName() + 
+                    "', '" + cus.getPhone() + 
+                    "', N'" + cus.getAddress() + "')";
+            stmt = conn.createStatement();
+            int rowAffected = stmt.executeUpdate(qry);
+            if(rowAffected == 1){
+                JOptionPane.showMessageDialog(null, "Thêm thành công");
+            }else{
+                JOptionPane.showMessageDialog(null, "Thêm không thành công");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Thêm không thành công");
+        }
+    }
     
+    public void delete(String id){
+        try{
+            String qry = "delete from Customer where id = '" + id + "'";
+            stmt = conn.createStatement();
+            int rowAffected = stmt.executeUpdate(qry);
+            if(rowAffected == 1){
+                JOptionPane.showMessageDialog(null, "Xóa thành công");
+            }else{
+                JOptionPane.showMessageDialog(null, "Xóa không thành công");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Xóa không thành công");
+        }
+    }
+    
+    public void edit(CustomerDTO cus ,String id){
+        try{
+            String qry = "update Customer set "
+                    + "name = '" + cus.getName()+ "', "
+                    + "phone = N'" + cus.getPhone()+ "', "
+                    + "address = N'" + cus.getAddress()+ "'"
+                    + "where id = '" + id + "'";
+            stmt = conn.createStatement();
+            int rowAffected = stmt.executeUpdate(qry);
+            if(rowAffected == 1){
+                JOptionPane.showMessageDialog(null, "Sửa thành công");
+            }else{
+                JOptionPane.showMessageDialog(null, "Sửa không thành công");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Sửa không thành công");
+        }
+    }
+    
+    public ArrayList readData(){
+        ArrayList<CustomerDTO> cusList = new ArrayList<>();
+        try{
+            String qry = "select * from Customer";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                CustomerDTO cusTemp = new CustomerDTO();
+                cusTemp.setCusID(rs.getString("cusID"));
+                cusTemp.setCusName(rs.getString("cusName"));
+                cusTemp.setPhone(rs.getString("phone"));
+                cusTemp.setAddress(rs.getString("address"));
+                cusTemp.setCreatedDate(rs.get("createdDate"));
+                cusList.add(cusTemp);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Tải dữ liệu không thành công");
+        }
+        return cusList;
+    }
 }
