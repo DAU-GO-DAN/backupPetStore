@@ -195,15 +195,12 @@ public class LoginGUI extends javax.swing.JFrame {
     private void tfPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPasswordKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btnLogin.requestFocus();
+            btnLoginActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ""));
         }
     }//GEN-LAST:event_tfPasswordKeyPressed
 
     private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btnLoginActionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ""));
-        }
     }//GEN-LAST:event_btnLoginKeyPressed
 
     /**
