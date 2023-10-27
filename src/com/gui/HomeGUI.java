@@ -63,7 +63,7 @@ public class HomeGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pNavigator.setBackground(new java.awt.Color(255, 255, 255));
+        pNavigator.setBackground(new java.awt.Color(255, 153, 0));
         pNavigator.setPreferredSize(new java.awt.Dimension(1280, 100));
 
         lproduct.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
