@@ -4,45 +4,67 @@
  */
 package com.dao;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author DUC PHU
  */
 public class CustomerDTO {
-    private String id;
-    private String name;
+    private String cusID;
+    private String cusName;
     private String phone;
     private String address;
+    private LocalDate createdDate;
 
-    public String getId() {
-        return id;
+    public CustomerDTO() {
     }
 
-    public String getName() {
-        return name;
+    public CustomerDTO(String cusID, String cusName, String phone, String address, LocalDate createdDate) {
+        this.cusID = cusID;
+        this.cusName = cusName;
+        this.phone = phone;
+        this.address = address;
+        this.createdDate = createdDate;
+    }
+
+    public String getCusID() {
+        return cusID;
+    }
+
+    public void setCusID(String cusID) {
+        this.cusID = cusID;
+    }
+
+    public String getCusName() {
+        return cusName;
+    }
+
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 }
