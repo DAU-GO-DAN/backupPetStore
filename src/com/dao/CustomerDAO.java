@@ -32,10 +32,12 @@ public class CustomerDAO {
     
     public void add(CustomerDTO cus){
         try{
-            String qry = "insert into Customer values ('" + cus.getId() + 
-                    "', N'" + cus.getName() + 
+            String qry = "insert into Customer values ('" 
+                    + cus.getCusID() + 
+                    "', N'" + cus.getCusName() + 
                     "', '" + cus.getPhone() + 
-                    "', N'" + cus.getAddress() + "')";
+                    "', N'" + cus.getAddress() + 
+                    "', " + rs.getDate("createdDate").toLocalDate() +"')";
             stmt = conn.createStatement();
             int rowAffected = stmt.executeUpdate(qry);
             if(rowAffected == 1){
@@ -66,9 +68,10 @@ public class CustomerDAO {
     public void edit(CustomerDTO cus ,String id){
         try{
             String qry = "update Customer set "
-                    + "name = '" + cus.getName()+ "', "
+                    + "cusName = '" + cus.getCusName()+ "', "
                     + "phone = N'" + cus.getPhone()+ "', "
                     + "address = N'" + cus.getAddress()+ "'"
+                    + "createdDate = " + cus.getCreatedDate() + "'"
                     + "where id = '" + id + "'";
             stmt = conn.createStatement();
             int rowAffected = stmt.executeUpdate(qry);
@@ -94,7 +97,7 @@ public class CustomerDAO {
                 cusTemp.setCusName(rs.getString("cusName"));
                 cusTemp.setPhone(rs.getString("phone"));
                 cusTemp.setAddress(rs.getString("address"));
-                cusTemp.setCreatedDate(rs.get("createdDate"));
+                cusTemp.setCreatedDate(rs.getDate("createdDate").toLocalDate());
                 cusList.add(cusTemp);
             }
         }catch(Exception e){
