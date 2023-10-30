@@ -103,4 +103,18 @@ public class SupplierDAO {
         return supList;
     }
     
+    //Kiểm tra mã duy nhất
+    public boolean isUnique(String id){
+        try{
+            String qry = "select * from Supplier where id = '" + id + "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            if(rs.next()){
+                return false;
+            }
+        }catch(Exception e){
+            
+        }
+        return true;
+    }
 }

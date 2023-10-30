@@ -45,6 +45,8 @@ public class ProductUI extends javax.swing.JPanel {
         tfSearch = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         BaseTable = new javax.swing.JPanel();
+        scrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setName(""); // NOI18N
@@ -72,15 +74,30 @@ public class ProductUI extends javax.swing.JPanel {
             }
         });
 
+        BaseTable.setBackground(new java.awt.Color(204, 255, 204));
+
+        javax.swing.GroupLayout TableLayout = new javax.swing.GroupLayout(Table);
+        Table.setLayout(TableLayout);
+        TableLayout.setHorizontalGroup(
+            TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1078, Short.MAX_VALUE)
+        );
+        TableLayout.setVerticalGroup(
+            TableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 548, Short.MAX_VALUE)
+        );
+
+        scrollPane.setViewportView(Table);
+
         javax.swing.GroupLayout BaseTableLayout = new javax.swing.GroupLayout(BaseTable);
         BaseTable.setLayout(BaseTableLayout);
         BaseTableLayout.setHorizontalGroup(
             BaseTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
         );
         BaseTableLayout.setVerticalGroup(
             BaseTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -118,52 +135,52 @@ public class ProductUI extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-//        add();
+        add();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-//    public void add()
-//    {
-//        table.removeAll();
-//        table.revalidate();
-//        table.repaint();
-//        int hgap = 5;
-//        int vgap = 5;
-//        
-//        PetOnStoreBUS testBus = new PetOnStoreBUS();
-//        ArrayList<PetOnStoreDTO> testList = new ArrayList<>();
-//        testList = testBus.petList;
-//        
-//        if(testList.size() <= 6)
-//        {
-//            table.setLayout(new GridLayout(2, 3, hgap, vgap));
-//            for(PetOnStoreDTO pet : testList)
-//            {
-//                ProductCom product = new ProductCom(pet);
-//                table.add(product);
-//            }
-//            int remains = 6 - testList.size();
-//            for(int i = 0; i < remains; i++)
-//            {
-//                EmptyProduct emp = new EmptyProduct();
-//                table.add(emp);
-//            }
-//        }
-//        else if(testList.size() > 6)
-//        {
-//            int rows = (testList.size() / 3) + 1;
-//            table.setLayout(new GridLayout(rows, 3, hgap, vgap));
-//            for(PetOnStoreDTO pet : testList)
-//            {
-//                ProductCom product = new ProductCom(pet);
-//                table.add(product);
-//            }
-//        }
-//        
-//        
-//        table.revalidate();
-//        table.repaint();
-//        
-//    }
+    public void add()
+    {
+        Table.removeAll();
+        Table.revalidate();
+        Table.repaint();
+        int hgap = 5;
+        int vgap = 5;
+        
+        PetOnStoreBUS testBus = new PetOnStoreBUS();
+        ArrayList<PetOnStoreDTO> testList = new ArrayList<>();
+        testList = testBus.petList;
+        
+        if(testList.size() <= 6)
+        {
+           Table.setLayout(new GridLayout(2, 3, hgap, vgap));
+            for(PetOnStoreDTO pet : testList)
+            {
+                ProductCom product = new ProductCom(pet);
+                Table.add(product);
+            }
+            int remains = 6 - testList.size();
+            for(int i = 0; i < remains; i++)
+            {
+                EmptyProduct emp = new EmptyProduct();
+                Table.add(emp);
+            }
+        }
+        else if(testList.size() > 6)
+        {
+            int rows = (testList.size() / 3) + 1;
+            Table.setLayout(new GridLayout(rows, 3, hgap, vgap));
+            for(PetOnStoreDTO pet : testList)
+            {
+                ProductCom product = new ProductCom(pet);
+                Table.add(product);
+            }
+        }
+        
+        
+        Table.revalidate();
+        Table.repaint();
+        
+    }
     
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -179,7 +196,9 @@ public class ProductUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BaseTable;
     private javax.swing.JPanel NavBar;
+    private javax.swing.JPanel Table;
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }
