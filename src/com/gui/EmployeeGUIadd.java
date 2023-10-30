@@ -19,6 +19,7 @@ public class EmployeeGUIadd extends javax.swing.JPanel {
     public EmployeeGUIadd(String flag) {
         initComponents();
         this.flag = flag;
+        
     }
 
     /**

@@ -14,11 +14,11 @@ import java.util.ArrayList;
  * @author huynh
  */
 public class PetOnStoreBUS {
-    ArrayList<PetOnStoreDTO> petList;
+    public ArrayList<PetOnStoreDTO> petList;
     static PetOnStoreDAO petData = new PetOnStoreDAO();
 
     public PetOnStoreBUS() {
-        
+        readData();
     }
     
     public ArrayList readDAO()
@@ -26,7 +26,7 @@ public class PetOnStoreBUS {
         return petData.readPOSList();
     }
     
-    void readData()
+    public void readData()
     {
         if(petList == null)
         {
@@ -70,7 +70,22 @@ public class PetOnStoreBUS {
     public String generateID()
     {
         String ID = "";
-        String prefix = "";
-        return prefix;
+        String prefix = "CH";
+        int i = 1;
+        for(PetOnStoreDTO pet : petList)
+        {
+            String number = String.format("%03d", i);
+            
+            ID = prefix + number;
+            if(pet.getId().equalsIgnoreCase(ID))
+            {
+                i++;
+            }
+            else{
+                
+                break;
+            }
+        }
+        return ID;
     }
 }
