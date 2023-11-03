@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SupplierBUS {
 
-    SupplierDAO supDAO = new SupplierDAO();
+    static SupplierDAO supDAO = new SupplierDAO();
     ArrayList<SupplierDTO> supList = new ArrayList<>();
     
     public SupplierBUS() {
