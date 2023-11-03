@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class SupplierBUS {
 
     static SupplierDAO supDAO = new SupplierDAO();
-    static ArrayList<SupplierDTO> supList = new ArrayList<>();
+    ArrayList<SupplierDTO> supList = new ArrayList<>();
     
     public SupplierBUS() {
         readData();
@@ -63,5 +63,18 @@ public class SupplierBUS {
             else id = null;
         }
         return id;
+    }
+    
+    public String getName(String ID)
+    {
+        String result = "";
+        for(SupplierDTO supplier : supList)
+        {
+            if(ID.equalsIgnoreCase(supplier.getId()))
+            {
+                result = supplier.getName();
+            }
+        }
+        return result;
     }
 }

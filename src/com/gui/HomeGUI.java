@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -33,6 +34,7 @@ public class HomeGUI extends javax.swing.JFrame {
         colorChangeTitle();
         svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
         svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     
