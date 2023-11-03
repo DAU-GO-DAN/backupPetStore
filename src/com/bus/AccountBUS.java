@@ -6,7 +6,6 @@ package com.bus;
 
 import com.dao.AccountDAO;
 import com.dao.AccountDTO;
-import com.dao.SupplierDTO;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
