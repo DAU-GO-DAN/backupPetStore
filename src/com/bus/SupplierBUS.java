@@ -16,14 +16,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SupplierBUS {
 
-    static SupplierDAO supDAO = new SupplierDAO();
-    ArrayList<SupplierDTO> supList = new ArrayList<>();
+    public static SupplierDAO supDAO = new SupplierDAO();
+    public ArrayList<SupplierDTO> supList;
     
     public SupplierBUS() {
         readData();
     }
     
     public void readData(){
+        if(supList == null)
+        {
+            supList = new ArrayList<SupplierDTO>();
+        }
         supList = supDAO.readData();
     }
     
