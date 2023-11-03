@@ -4,9 +4,13 @@
  */
 package com.bus;
 
+import static com.bus.SupplierBUS.supList;
 import com.dao.AccountDAO;
 import com.dao.AccountDTO;
+import com.dao.SupplierDTO;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,7 +24,7 @@ public class AccountBUS {
         readData();
     }
     
-    void readData(){
+    public void readData(){
         if(accList == null) accList = new ArrayList<>();
         accList = accDAO.readAcctList();
     }
@@ -31,5 +35,21 @@ public class AccountBUS {
     
     public boolean loginCheck(String username, String password){
         return accDAO.loginCheck(username, password);
+    }
+    public DefaultTableModel getModel(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã NV");
+        model.addColumn("Username");
+        model.addColumn("Password");
+        model.addColumn("Địa chỉ");
+        for (AccountDTO acc : accList) {
+            Vector row = new Vector<>();
+            row.add(acc.getUserId());
+            row.add(acc.getUsername());
+            row.add(acc.getPassword());
+            row.add(acc.getRole());
+            model.addRow(row);
+        }
+        return model;
     }
 }
