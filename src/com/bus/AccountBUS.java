@@ -4,7 +4,6 @@
  */
 package com.bus;
 
-import static com.bus.SupplierBUS.supList;
 import com.dao.AccountDAO;
 import com.dao.AccountDTO;
 import com.dao.SupplierDTO;
@@ -36,6 +35,7 @@ public class AccountBUS {
     public boolean loginCheck(String username, String password){
         return accDAO.loginCheck(username, password);
     }
+    
     public DefaultTableModel getModel(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Mã NV");
