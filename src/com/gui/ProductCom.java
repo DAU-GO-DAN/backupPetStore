@@ -4,6 +4,9 @@
  */
 package com.gui;
 
+import com.dao.PetOnStoreDTO;
+import com.dao.PetProductDTO;
+import com.dao.SoldPetDTO;
 import com.dao.ProductDTO;
 import java.awt.Dimension;
 
@@ -16,11 +19,13 @@ public class ProductCom extends javax.swing.JPanel {
     /**
      * Creates new form ProductCom
      */
+    ProductUI ui;
     ProductDTO product;
-    public ProductCom(ProductDTO product) {
+    public ProductCom(ProductDTO product, ProductUI ui) {
         this.product = product;
+        this.ui = ui;
         initComponents();
-        setSize(new Dimension(346, 258));
+        setSize(new Dimension(345, 265));
         svgEdit.setSVGImage("com/image/edit.svg", 48, 48);
     }
 
@@ -49,20 +54,26 @@ public class ProductCom extends javax.swing.JPanel {
         lbNameID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbNameID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        svgEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgEditMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbSoldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lbNameID, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(svgEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(lbNameID, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbSoldPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(svgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,6 +94,17 @@ public class ProductCom extends javax.swing.JPanel {
         lbSoldPrice.setText(""+product.getSoldPrice());
         lbNameID.setText(""+product.getName()+ " "+product.getId());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void svgEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgEditMouseClicked
+        // TODO add your handling code here:
+        if(product instanceof PetOnStoreDTO)
+        {
+            PetOnStoreDTO petTemp = (PetOnStoreDTO) product;
+            PetOnStoreDetail detailForm = new PetOnStoreDetail(petTemp, ui);
+            detailForm.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_svgEditMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
