@@ -14,8 +14,8 @@ import java.sql.SQLException;
 public class MyConnection {
     private static Connection connection = null;
     static private String user = "sa";
-    static private String password = "123456";
-    static private String serverName = "FX506LH\\SQLEXPRESS";
+    static private String password = "giahuy123rt";
+    static private String serverName = "DESKTOP-IVR3ABH\\MAYAO";
     static private String portNumber = "1433";
     static private String DBName = "PetStoreProject";
     
