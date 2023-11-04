@@ -31,7 +31,7 @@ public class ImportDetailDAO {
         conn = MyConnection.getConnection();
     }
     
-    public ArrayList readImpDetList(){
+    public ArrayList<ImportDetailDTO> readImpDetList(){
         ArrayList list = new ArrayList<ImportDetailDTO>();
         try{
             String qry = "Select * from ImportDetail";
