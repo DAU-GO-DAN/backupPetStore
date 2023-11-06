@@ -165,6 +165,9 @@
       </SubComponents>
     </Container>
     <Component class="com.gui.SvgImage" name="svgAdd">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="svgAddMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

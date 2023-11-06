@@ -5,7 +5,7 @@
 package com.gui;
 
 import com.bus.BreedBUS;
-import com.bus.SupplierBUS;
+import com.bus.SupplierTempBUS;
 import com.dao.PetOnStoreDTO;
 
 /**
@@ -19,6 +19,8 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
      */
     ProductUI ui;
     PetOnStoreDTO pet;
+    BreedBUS breed = new BreedBUS();
+    SupplierTempBUS supplier = new SupplierTempBUS();
     public PetOnStoreDetail(PetOnStoreDTO pet, ProductUI ui) {
         this.pet = pet;
         this.ui = ui;
@@ -94,6 +96,11 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         tfBreed.setText("Chó Shiba Nhựt Bổn");
 
         btnChooseBreed.setText("...");
+        btnChooseBreed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseBreedActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Màu lông");
@@ -118,6 +125,7 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         tfDescription.setLineWrap(true);
         tfDescription.setText(pet.getDescription());
 
+        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jButton1.setText("Xóa");
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -219,15 +227,14 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
                 .addGap(93, 93, 93))
         );
 
-        BreedBUS breed = new BreedBUS();
-        SupplierBUS supplier = new SupplierBUS();
         lbTitle.setText(""+pet.getId() + " - "+pet.getName());
         tfImportPrice.setText(""+pet.getImportPrice());
         String supName = supplier.getName(pet.getSupplierId());
-        tfSupplier.setText(supName);
+        tfSupplier.setText(supName+"");
         tfSoldPrice.setText(""+pet.getSoldPrice());
         cbbGender.setSelectedItem(pet.getGender()+"");
         String breedName = breed.getBreedName(pet.getBreedId());
+        tfBreed.setText(breedName);
         tfColor.setText(pet.getColor());
         tfWeight.setText(pet.getWeight()+"");
 
@@ -240,7 +247,17 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
+    private void btnChooseBreedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseBreedActionPerformed
+        // TODO add your handling code here:
+        String flag = "edit";
+        BreedChooser breedChose = new BreedChooser(breed, this, flag);
+        breedChose.setVisible(true);
+    }//GEN-LAST:event_btnChooseBreedActionPerformed
+
+    public void setBreed(String breed)
+    {
+        tfBreed.setText(breed+"");
+    }
     
     /**
      * @param args the command line arguments

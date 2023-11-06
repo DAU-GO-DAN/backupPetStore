@@ -4,6 +4,8 @@
  */
 package com.gui;
 
+import com.dao.BreedDTO;
+
 /**
  *
  * @author DUC PHU
@@ -13,8 +15,26 @@ public class BreedItem extends javax.swing.JPanel {
     /**
      * Creates new form BreedItem
      */
-    public BreedItem() {
+    BreedDTO breedTemp;
+    PetOnStoreDetail petForm;
+    AddPetForm addForm;
+    BreedChooser breedChose;
+    public BreedItem(BreedDTO breedTemp, PetOnStoreDetail petForm, BreedChooser breedChose) {
+        this.petForm = petForm;
+        this.breedTemp = breedTemp;
+        this.breedChose = breedChose;
         initComponents();
+        setSize(520, 36);
+        svgAdd.setSVGImage("com/image/add.svg", 36, 36);
+    }
+    
+    public BreedItem(BreedDTO breedTemp, AddPetForm addForm, BreedChooser breedChose) {
+        this.addForm = addForm;
+        this.breedTemp = breedTemp;
+        this.breedChose = breedChose;
+        initComponents();
+        setSize(520, 36);
+        svgAdd.setSVGImage("com/image/add.svg", 36, 36);
     }
 
     /**
@@ -26,19 +46,46 @@ public class BreedItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        svgAdd = new com.gui.SvgImage();
+        lbBreedName = new javax.swing.JLabel();
+
+        svgAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgAddMouseClicked(evt);
+            }
+        });
+
+        lbBreedName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbBreedName.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbBreedName, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 37, Short.MAX_VALUE)
+            .addComponent(lbBreedName, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(svgAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        lbBreedName.setText(""+breedTemp.getName());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void svgAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgAddMouseClicked
+        // TODO add your handling code here:
+        petForm.setBreed(breedTemp.getName()+"");
+        breedChose.dispose();
+    }//GEN-LAST:event_svgAddMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lbBreedName;
+    private com.gui.SvgImage svgAdd;
     // End of variables declaration//GEN-END:variables
 }

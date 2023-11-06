@@ -6,8 +6,6 @@ package com.bus;
 
 import com.dao.BreedDTO;
 import com.dao.BreedDAO;
-
-
 import java.util.ArrayList;
 
 /**
@@ -22,6 +20,11 @@ public class BreedBUS {
         readData();
     }
     
+    public ArrayList<BreedDTO> list()
+    {
+        return breedList;
+        
+    }
     
     
     public void readData()
@@ -67,12 +70,12 @@ public class BreedBUS {
         return result;
     }
     
-    ArrayList<BreedDTO> search(String text)
+    public ArrayList<BreedDTO> search(String text)
     {
         ArrayList<BreedDTO> matchingList = new ArrayList<>();
         for(BreedDTO breed : breedList)
         {
-            if(breed.getId().equalsIgnoreCase(text) || breed.getName().equalsIgnoreCase(text))
+            if(breed.getName().toLowerCase().contains(text.toLowerCase()))
             {
                 matchingList.add(breed);
             }

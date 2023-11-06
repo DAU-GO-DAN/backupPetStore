@@ -4,9 +4,11 @@
  */
 package com.gui;
 
+import com.bus.BreedBUS;
 import com.bus.PetOnStoreBUS;
 import com.bus.SupplierBUS;
 import com.dao.PetOnStoreDTO;
+import com.dao.SupplierDTO;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -28,6 +30,7 @@ public class ProductUI extends javax.swing.JPanel {
     /**
      * Creates new form ProductCom
      */
+    PetOnStoreBUS testBus = new PetOnStoreBUS();
     public ProductUI() {
         initComponents();
         setSize(new Dimension(1280, 620));
@@ -123,6 +126,12 @@ public class ProductUI extends javax.swing.JPanel {
         int scrollAmount = 15;
         scrollPane.getVerticalScrollBar().setUnitIncrement(scrollAmount);
 
+        svgAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgAddMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,16 +167,29 @@ public class ProductUI extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        add();
+        refreshTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        SupplierBUS sup = new SupplierBUS();
+        SupplierBUS supBUs = new SupplierBUS();
+        for(SupplierDTO sup : supBUs.supList)
+        {
+            System.out.println(sup.getId()+"");
+        }
+        BreedBUS bre = new BreedBUS();
+//        ArrayList supplierList = new ArrayList<SupplierDTO>();
+        System.out.println(bre.getBreedName("BRD02")+"");
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void add()
+    private void svgAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgAddMouseClicked
+        // TODO add your handling code here:
+        AddPetForm addForm = new AddPetForm(this);
+        addForm.setVisible(true);
+    }//GEN-LAST:event_svgAddMouseClicked
+
+    public void refreshTable()
     {
         Table.removeAll();
         Table.revalidate();
@@ -175,7 +197,7 @@ public class ProductUI extends javax.swing.JPanel {
         int hgap = 5;
         int vgap = 5;
         
-        PetOnStoreBUS testBus = new PetOnStoreBUS();
+        
         ArrayList<PetOnStoreDTO> testList = new ArrayList<>();
         testList = testBus.petList;
         
