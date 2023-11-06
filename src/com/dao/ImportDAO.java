@@ -31,8 +31,8 @@ public class ImportDAO {
         conn = MyConnection.getConnection();
     }
     
-    public ArrayList readImpList(){
-        ArrayList list = new ArrayList<ImportDTO>();
+    public ArrayList<ImportDTO> readImpList(){
+        ArrayList<ImportDTO> list = new ArrayList<>();
         try{
             String qry = "Select * from Import";
             stmt = conn.createStatement();
@@ -42,13 +42,13 @@ public class ImportDAO {
                 ImportDTO impDTO = new ImportDTO();
                 impDTO.setImportID(rs.getString("id"));
                 impDTO.setCreatedDate(rs.getString("createdDate"));
-                impDTO.setAmount(rs.getInt("amount"));
+                impDTO.setAmount(rs.getInt("totalAmount"));
                 impDTO.setEmployeeID(rs.getString("employeeID"));
                 list.add(impDTO);
+
             }
         }
-        catch (SQLException ex){
-            
+        catch (SQLException e){
         }
         return list;
     }
