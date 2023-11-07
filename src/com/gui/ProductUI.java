@@ -199,6 +199,7 @@ public class ProductUI extends javax.swing.JPanel {
         
         
         ArrayList<PetOnStoreDTO> testList = new ArrayList<>();
+        testBus.readData();
         testList = testBus.petList;
         
         if(testList.size() <= 6)

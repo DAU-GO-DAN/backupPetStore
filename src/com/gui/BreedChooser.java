@@ -25,6 +25,7 @@ public class BreedChooser extends javax.swing.JFrame {
     AddPetForm addForm;
     private ArrayList<BreedDTO> matchList;
     public BreedChooser(BreedBUS breed, PetOnStoreDetail petForm, String flag) {
+        this.flag = flag;
         this.breed = breed;
         this.petForm = petForm;
         initComponents();
@@ -32,6 +33,7 @@ public class BreedChooser extends javax.swing.JFrame {
     }
     
     public BreedChooser(BreedBUS breed, AddPetForm addForm, String flag) {
+        this.flag = flag;
         this.breed = breed;
         this.addForm = addForm;
         initComponents();
@@ -153,8 +155,16 @@ public class BreedChooser extends javax.swing.JFrame {
         Table.setLayout(new GridLayout(matchList.size(), 1));
         for(BreedDTO breedTemp : matchList)
         {
-            BreedItem item = new BreedItem(breedTemp, petForm, this);
-            Table.add(item);
+            if(flag.equals("edit"))
+            {
+                BreedItem item = new BreedItem(breedTemp, petForm, this, flag);
+                Table.add(item);
+            }
+            else if(flag.equals("add"))
+            {
+                BreedItem item = new BreedItem(breedTemp, addForm, this, flag);
+                Table.add(item);
+            }
         }
         
         
@@ -199,8 +209,16 @@ public class BreedChooser extends javax.swing.JFrame {
         
         for(BreedDTO breedTemp : breedList)
         {
-            BreedItem item = new BreedItem(breedTemp, petForm, this);
-            Table.add(item);
+            if(flag.equals("edit"))
+            {
+                BreedItem item = new BreedItem(breedTemp, petForm, this, flag);
+                Table.add(item);
+            }
+            else if(flag.equals("add"))
+            {
+                BreedItem item = new BreedItem(breedTemp, addForm, this, flag);
+                Table.add(item);
+            }
         }
     }
     /**

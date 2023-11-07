@@ -15,11 +15,13 @@ public class BreedItem extends javax.swing.JPanel {
     /**
      * Creates new form BreedItem
      */
+    String flag;
     BreedDTO breedTemp;
     PetOnStoreDetail petForm;
     AddPetForm addForm;
     BreedChooser breedChose;
-    public BreedItem(BreedDTO breedTemp, PetOnStoreDetail petForm, BreedChooser breedChose) {
+    public BreedItem(BreedDTO breedTemp, PetOnStoreDetail petForm, BreedChooser breedChose, String flag) {
+        this.flag = flag;
         this.petForm = petForm;
         this.breedTemp = breedTemp;
         this.breedChose = breedChose;
@@ -28,7 +30,8 @@ public class BreedItem extends javax.swing.JPanel {
         svgAdd.setSVGImage("com/image/add.svg", 36, 36);
     }
     
-    public BreedItem(BreedDTO breedTemp, AddPetForm addForm, BreedChooser breedChose) {
+    public BreedItem(BreedDTO breedTemp, AddPetForm addForm, BreedChooser breedChose, String flag) {
+        this.flag = flag;
         this.addForm = addForm;
         this.breedTemp = breedTemp;
         this.breedChose = breedChose;
@@ -79,7 +82,14 @@ public class BreedItem extends javax.swing.JPanel {
 
     private void svgAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgAddMouseClicked
         // TODO add your handling code here:
-        petForm.setBreed(breedTemp.getName()+"");
+        if(flag.equals("edit"))
+        {
+            petForm.setBreed(breedTemp.getName()+"");    
+        }
+        else if(flag.equals("add"))
+        {
+            addForm.setBreed(breedTemp.getName()+"");
+        }
         breedChose.dispose();
     }//GEN-LAST:event_svgAddMouseClicked
 
