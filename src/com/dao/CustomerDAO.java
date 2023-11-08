@@ -37,7 +37,7 @@ public class CustomerDAO {
                     "', N'" + cus.getCusName() + 
                     "', '" + cus.getPhone() + 
                     "', N'" + cus.getAddress() + 
-                    "', " + rs.getDate("createdDate").toLocalDate() +"')";
+                    "', '" + cus.getCreatedDate() +"')";
             stmt = conn.createStatement();
             int rowAffected = stmt.executeUpdate(qry);
             if(rowAffected == 1){
@@ -45,34 +45,19 @@ public class CustomerDAO {
             }else{
                 JOptionPane.showMessageDialog(null, "Thêm không thành công");
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Thêm không thành công");
-        }
-    }
-    
-    public void delete(String id){
-        try{
-            String qry = "delete from Customer where id = '" + id + "'";
-            stmt = conn.createStatement();
-            int rowAffected = stmt.executeUpdate(qry);
-            if(rowAffected == 1){
-                JOptionPane.showMessageDialog(null, "Xóa thành công");
-            }else{
-                JOptionPane.showMessageDialog(null, "Xóa không thành công");
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Xóa không thành công");
+        }catch(SQLException e){
+//            e.printStackTrace();
         }
     }
     
     public void edit(CustomerDTO cus ,String id){
         try{
             String qry = "update Customer set "
-                    + "cusName = '" + cus.getCusName()+ "', "
-                    + "phone = N'" + cus.getPhone()+ "', "
-                    + "address = N'" + cus.getAddress()+ "'"
-                    + "createdDate = " + cus.getCreatedDate() + "'"
-                    + "where id = '" + id + "'";
+                    + "cusName = N'" + cus.getCusName()+ "', "
+                    + "phone = '" + cus.getPhone()+ "', "
+                    + "address = N'" + cus.getAddress()+ "', "
+                    + "createdDate = '" + cus.getCreatedDate() + "' "
+                    + "where cusID = '" + id + "'";
             stmt = conn.createStatement();
             int rowAffected = stmt.executeUpdate(qry);
             if(rowAffected == 1){
@@ -80,8 +65,8 @@ public class CustomerDAO {
             }else{
                 JOptionPane.showMessageDialog(null, "Sửa không thành công");
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Sửa không thành công");
+        }catch(SQLException e){
+//            e.printStackTrace();
         }
     }
     
@@ -104,5 +89,20 @@ public class CustomerDAO {
             JOptionPane.showMessageDialog(null, "Tải dữ liệu không thành công");
         }
         return cusList;
+    }
+    
+    //Kiểm tra mã duy nhất
+    public boolean isUnique(String id){
+        try{
+            String qry = "select * from Customer where cusID = '" + id + "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            if(rs.next()){
+                return false;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return true;
     }
 }

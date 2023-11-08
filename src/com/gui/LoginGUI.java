@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class LoginGUI extends javax.swing.JFrame {
 
@@ -163,20 +164,17 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tfUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+
         AccountBUS accBUS = new AccountBUS();
-        
         String usernameCheck = tfUsername.getText();
         char[] passwordChars = tfPassword.getPassword();
         String passwordCheck = String.valueOf(passwordChars);
-        //loginCheck là hàm trả về 1 vai trò của account đó
-        if(accBUS.loginCheck(usernameCheck, passwordCheck)){
-            JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-            this.dispose();
-            HomeGUI home = new HomeGUI(accBUS.getAccount(usernameCheck, passwordCheck));
-            home.setVisible(true);
+        if(accBUS.checkExist(usernameCheck)){
+            if(accBUS.getAccount(usernameCheck).getPassword().equalsIgnoreCase(passwordCheck)) 
+                JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+            else JOptionPane.showMessageDialog(null, "Sai mật khẩu");
         }else{
-            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không đúng");
+            JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -224,6 +222,11 @@ public class LoginGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
                 new LoginGUI().setVisible(true);
             }
         });
