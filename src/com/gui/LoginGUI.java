@@ -170,8 +170,13 @@ public class LoginGUI extends javax.swing.JFrame {
         char[] passwordChars = tfPassword.getPassword();
         String passwordCheck = String.valueOf(passwordChars);
         if(accBUS.checkExist(usernameCheck)){
-            if(accBUS.getAccount(usernameCheck).getPassword().equalsIgnoreCase(passwordCheck)) 
+            if(accBUS.getAccount(usernameCheck).getPassword().equalsIgnoreCase(passwordCheck)) {
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+                HomeGUI home = new HomeGUI(accBUS.getAccount(usernameCheck));
+                home.setVisible(true);
+                this.dispose();
+            }
+                
             else JOptionPane.showMessageDialog(null, "Sai mật khẩu");
         }else{
             JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại");
