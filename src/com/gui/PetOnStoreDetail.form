@@ -140,7 +140,7 @@
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="BreedBUS breed = new BreedBUS();&#xa;SupplierBUS supplier = new SupplierBUS();&#xa;lbTitle.setText(&quot;&quot;+pet.getId() + &quot; - &quot;+pet.getName());"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="lbTitle.setText(&quot;&quot;+pet.getId() + &quot; - &quot;+pet.getName());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -178,7 +178,7 @@
         <Property name="text" type="java.lang.String" value="PetStore"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String supName = supplier.getName(pet.getSupplierId());&#xa;tfSupplier.setText(supName);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String supName = supplier.getName(pet.getSupplierId());&#xa;tfSupplier.setText(supName+&quot;&quot;);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -241,13 +241,16 @@
         <Property name="text" type="java.lang.String" value="Ch&#xf3; Shiba Nh&#x1ef1;t B&#x1ed5;n"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String breedName = breed.getBreedName(pet.getBreedId());"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String breedName = breed.getBreedName(pet.getBreedId());&#xa;tfBreed.setText(breedName);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnChooseBreed">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChooseBreedActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -318,6 +321,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="14" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
       </Properties>
     </Component>

@@ -14,17 +14,11 @@ import javax.swing.JOptionPane;
  * @author huynh
  */
 public class ImportBUS {
-    ArrayList<ImportDTO> impDTO;
-    static ImportDAO impDAO = new ImportDAO();
-    
-    public ImportBUS(){
-        readData();
+  ImportDAO impDAO = new ImportDAO();
+    public <impDAO> ArrayList<ImportDTO> getList() throws SQLException{
+        return impDAO.readImpList();
     }
-    
-    void readData(){
-        if(impDTO == null) impDTO = new ArrayList<>();
-        impDTO = impDAO.readImpList();
-    }
+
     
     public ImportDTO findById(String id)  throws SQLException{
         boolean isSuccess=impDAO.checkExistById(id);

@@ -16,6 +16,7 @@ public class PetOnStoreDTO extends ProductDTO{
 
     public PetOnStoreDTO() {
         super();
+        
     }
 
     public PetOnStoreDTO(String gender, String breedId, String color, int weight) {

@@ -90,4 +90,23 @@ public class AccountDAO {
         }
         return false;
     }
+    public ArrayList readData(){
+        ArrayList<AccountDTO> accList = new ArrayList<>();
+        try{
+            String qry = "select * from Account";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                AccountDTO accTemp = new AccountDTO();
+                accTemp.setUserId(rs.getString("userID"));
+                accTemp.setUsername(rs.getString("userName"));
+                accTemp.setPassword(rs.getString("passworld"));
+                accTemp.setRole(rs.getString("role"));
+                accList.add(accTemp);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Tải dữ liệu không thành công");
+        }
+        return accList;
+    }
 }

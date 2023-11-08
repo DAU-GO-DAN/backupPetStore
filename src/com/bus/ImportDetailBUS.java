@@ -14,16 +14,9 @@ import javax.swing.JOptionPane;
  * @author huynh
  */
 public class ImportDetailBUS {
-    ArrayList<ImportDetailDTO> impDetDTO;
-    static ImportDetailDAO impDetDAO = new ImportDetailDAO();
-    
-    public ImportDetailBUS(){
-        readData();
-    }
-    
-    void readData(){
-        if(impDetDTO == null) impDetDTO = new ArrayList<>();
-        impDetDTO = impDetDAO.readImpDetList();
+    ImportDetailDAO impDetDAO = new ImportDetailDAO();
+    public <impDetDAO> ArrayList<ImportDetailDTO> getList() throws SQLException{
+        return impDetDAO.readImpDetList();
     }
     
     public ImportDetailDTO findById(String id) throws SQLException {

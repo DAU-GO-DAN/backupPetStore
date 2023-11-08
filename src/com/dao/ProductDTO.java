@@ -17,6 +17,12 @@ public abstract class ProductDTO {
     private String supplierId;
     private String imageUrl;
 
+    public ProductDTO() {
+        this.imageUrl = "";
+    }
+    
+    
+
     public String getImageUrl() {
         return imageUrl;
     }

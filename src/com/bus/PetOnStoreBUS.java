@@ -71,6 +71,7 @@ public class PetOnStoreBUS {
     {
         String ID = "";
         String prefix = "CH";
+        String flag = "";
         int i = 1;
         for(PetOnStoreDTO pet : petList)
         {
@@ -79,12 +80,20 @@ public class PetOnStoreBUS {
             ID = prefix + number;
             if(pet.getId().equalsIgnoreCase(ID))
             {
+                flag = "noslot";
                 i++;
             }
             else{
-                
+                flag = "generated";
                 break;
             }
+        }
+        
+        if(flag.equals("noslot"))
+        {
+            
+            String number = String.format("%03d", i);
+            ID = prefix + number;
         }
         return ID;
     }
