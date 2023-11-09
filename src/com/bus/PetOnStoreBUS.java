@@ -35,26 +35,26 @@ public class PetOnStoreBUS {
         petList = petData.readPOSList();
     }
     
-    void add(PetOnStoreDTO pet)
+    public void add(PetOnStoreDTO pet)
     {
         petData.add(pet);
         petList.add(pet);
     }
     
-    void delete(String ID)
+    public void delete(String ID)
     {
         petData.delete(ID);
         petList.removeIf(pet ->pet.getId().equals(ID));
     }
     
-    void edit(PetOnStoreDTO pet)
+    public void edit(PetOnStoreDTO pet)
     {
         petData.edit(pet);
         petList.removeIf(petTemp -> petTemp.getId().equals(pet.getId()));
         petList.add(pet);
     }
     
-    ArrayList<PetOnStoreDTO> search(String text)
+    public ArrayList<PetOnStoreDTO> search(String text)
     {
         ArrayList<PetOnStoreDTO> matchingPets = new ArrayList<>();
         for(PetOnStoreDTO pet : petList)

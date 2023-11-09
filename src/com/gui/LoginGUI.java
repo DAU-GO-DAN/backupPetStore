@@ -17,6 +17,7 @@ public class LoginGUI extends javax.swing.JFrame {
         svgLogoPetStore.setSVGImage("com/image/logohinh.svg", 200, 190);
         svgTitle.setSVGImage("com/image/Logo.svg", 350, 90);
         setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

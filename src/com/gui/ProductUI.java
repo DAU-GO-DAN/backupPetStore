@@ -9,15 +9,22 @@ import com.bus.PetOnStoreBUS;
 import com.bus.SupplierBUS;
 import com.dao.PetOnStoreDTO;
 import com.dao.SupplierDTO;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -34,7 +41,7 @@ public class ProductUI extends javax.swing.JPanel {
     public ProductUI() {
         initComponents();
         setSize(new Dimension(1280, 620));
-        svgAdd.setSVGImage("com/image/add.svg", 32, 32);
+//        svgAdd.setSVGImage("com/image/add.svg", 32, 32);
     }
 
     /**
@@ -47,53 +54,83 @@ public class ProductUI extends javax.swing.JPanel {
     private void initComponents() {
 
         NavBar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lbPetOnStore = new javax.swing.JLabel();
+        lbSoldPet = new javax.swing.JLabel();
+        lbPetProduct = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
         BaseTable = new javax.swing.JPanel();
         scrollPane = new javax.swing.JScrollPane();
         Table = new javax.swing.JPanel();
         svgAdd = new com.gui.SvgImage();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 204));
         setName(""); // NOI18N
 
         NavBar.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        lbPetOnStore.setBackground(new java.awt.Color(255, 255, 255));
+        lbPetOnStore.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbPetOnStore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPetOnStore.setText("Thú đang bán");
+        lbPetOnStore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbPetOnStore.setOpaque(true);
+        lbPetOnStore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbPetOnStoreMouseClicked(evt);
             }
         });
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        lbSoldPet.setBackground(new java.awt.Color(255, 255, 255));
+        lbSoldPet.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbSoldPet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbSoldPet.setText("Thú đã bán");
+        lbSoldPet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbSoldPet.setOpaque(true);
+
+        lbPetProduct.setBackground(new java.awt.Color(255, 255, 255));
+        lbPetProduct.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbPetProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPetProduct.setText("Sản phẩm cho thú");
+        lbPetProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbPetProduct.setOpaque(true);
 
         javax.swing.GroupLayout NavBarLayout = new javax.swing.GroupLayout(NavBar);
         NavBar.setLayout(NavBarLayout);
         NavBarLayout.setHorizontalGroup(
             NavBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NavBarLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(NavBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(49, Short.MAX_VALUE))
+            .addComponent(lbPetOnStore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbSoldPet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbPetProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
         );
         NavBarLayout.setVerticalGroup(
             NavBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavBarLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jButton1)
-                .addGap(73, 73, 73)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbPetOnStore, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbSoldPet, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbPetProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        List<JLabel> navButtons = Arrays.asList(lbPetOnStore, lbPetProduct, lbSoldPet);
+
+        for(JLabel navButton : navButtons)
+        {
+            navButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e){
+                    for(JLabel navBtn : navButtons)
+                    {
+                        navBtn.setBackground(new Color(0xFFFFFF));
+                    }
+                    navButton.setBackground(new Color(0xF0D2BB));
+                }
+
+            });
+        }
 
         tfSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -132,21 +169,36 @@ public class ProductUI extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Bộ lọc : ");
+
+        jComboBox1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton3.setText("Lọc");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(NavBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206)
-                        .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(BaseTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BaseTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -154,40 +206,35 @@ public class ProductUI extends javax.swing.JPanel {
             .addComponent(NavBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(11, 11, 11)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BaseTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        BaseTable.setSize(new Dimension(1080, 550));
+        BaseTable.setPreferredSize(new Dimension(1080, 550));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        refreshTable();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        SupplierBUS supBUs = new SupplierBUS();
-        for(SupplierDTO sup : supBUs.supList)
-        {
-            System.out.println(sup.getId()+"");
-        }
-        BreedBUS bre = new BreedBUS();
-//        ArrayList supplierList = new ArrayList<SupplierDTO>();
-        System.out.println(bre.getBreedName("BRD02")+"");
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void svgAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgAddMouseClicked
         // TODO add your handling code here:
         AddPetForm addForm = new AddPetForm(this);
         addForm.setVisible(true);
     }//GEN-LAST:event_svgAddMouseClicked
+
+    private void lbPetOnStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbPetOnStoreMouseClicked
+        // TODO add your handling code here:
+        refreshTable();
+    }//GEN-LAST:event_lbPetOnStoreMouseClicked
 
     public void refreshTable()
     {
@@ -243,6 +290,8 @@ public class ProductUI extends javax.swing.JPanel {
         
     }
     
+    
+    
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(1280, 620);
@@ -258,8 +307,12 @@ public class ProductUI extends javax.swing.JPanel {
     private javax.swing.JPanel BaseTable;
     private javax.swing.JPanel NavBar;
     private javax.swing.JPanel Table;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbPetOnStore;
+    private javax.swing.JLabel lbPetProduct;
+    private javax.swing.JLabel lbSoldPet;
     private javax.swing.JScrollPane scrollPane;
     private com.gui.SvgImage svgAdd;
     private javax.swing.JTextField tfSearch;

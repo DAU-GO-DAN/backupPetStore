@@ -31,13 +31,14 @@ public class AddPetForm extends javax.swing.JFrame {
     
     ProductUI ui;
     BreedBUS breed = new BreedBUS();
+    SupplierTempBUS supplier = new SupplierTempBUS();
     private String imageUrl = "null";
     private JFileChooser fileChooser = new JFileChooser();
     private File selectedFile;
     private String imagePath;
     private Long importPrice;
     private Long soldPrice;
-    Validator valid;
+    Validator valid = new Validator();
 
     public AddPetForm(ProductUI ui) {
         this.ui = ui;
@@ -86,6 +87,8 @@ public class AddPetForm extends javax.swing.JFrame {
         lbNameWarn = new javax.swing.JLabel();
         lbImportPriceWarn = new javax.swing.JLabel();
         lbSoldPriceWarn = new javax.swing.JLabel();
+        lbBreedWarn = new javax.swing.JLabel();
+        lbColorWarn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +100,16 @@ public class AddPetForm extends javax.swing.JFrame {
         jLabel2.setText("Tên");
 
         tfName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNameFocusLost(evt);
+            }
+        });
+        tfName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNameKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Bên cung cấp");
@@ -135,6 +148,11 @@ public class AddPetForm extends javax.swing.JFrame {
         jLabel8.setText("Cân Nặng");
 
         tfWeight.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfWeight.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfWeightFocusLost(evt);
+            }
+        });
 
         tfColor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -203,6 +221,10 @@ public class AddPetForm extends javax.swing.JFrame {
 
         lbSoldPriceWarn.setForeground(new java.awt.Color(255, 102, 102));
 
+        lbBreedWarn.setForeground(new java.awt.Color(255, 102, 102));
+
+        lbColorWarn.setForeground(new java.awt.Color(255, 102, 102));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,9 +237,6 @@ public class AddPetForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(184, 184, 184)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbWeightWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +284,14 @@ public class AddPetForm extends javax.swing.JFrame {
                             .addComponent(lbSoldPriceWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbImportPriceWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbNameWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbBreedWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(284, 284, 284))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbWeightWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbColorWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(284, 284, 284))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,8 +333,10 @@ public class AddPetForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnChoseBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(3, 3, 3)
-                .addComponent(lbSoldPriceWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbSoldPriceWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbBreedWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -319,8 +347,10 @@ public class AddPetForm extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfColor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1, 1, 1)
-                .addComponent(lbWeightWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbWeightWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbColorWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -338,6 +368,8 @@ public class AddPetForm extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
+        loadSupplierList();
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -352,8 +384,8 @@ public class AddPetForm extends javax.swing.JFrame {
             
             // Thực hiện các bước tiếp theo ở đây
             
-            String imageUrl = selectedFile.getName()+"";
-            ImageIcon imageIcon = new ImageIcon("src/com/image/" +imageUrl);
+            imageUrl = selectedFile.getName()+"";
+            ImageIcon imageIcon = new ImageIcon("" +imagePath);
             Image image = imageIcon.getImage();
             int labelWidth = lbImage.getWidth();
             int labelHeight = lbImage.getHeight();
@@ -372,41 +404,132 @@ public class AddPetForm extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        PetOnStoreDTO pet = new PetOnStoreDTO();
-        PetOnStoreBUS petBus = new PetOnStoreBUS();
-        String id = petBus.generateID();
-        if(imageUrl.equals("null"))
+        if(validInput())
         {
-            pet.setImageUrl(imageUrl);
+            PetOnStoreDTO pet = new PetOnStoreDTO();
+            PetOnStoreBUS petBus = new PetOnStoreBUS();
+            String id = petBus.generateID();
+            if(imageUrl.equals("null"))
+            {
+                pet.setImageUrl(imageUrl);
+            }
+            else{
+                pet.setImageUrl(imageUrl);
+                File sourceImageFile = new File(imagePath);
+                File destinationImageFile = new File("src/com/image/" + selectedFile.getName());
+                try {
+                    Files.copy(sourceImageFile.toPath(), destinationImageFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            pet.setId(id);
+            pet.setName(tfName.getText()+"");
+            importPrice = valid.convertStringToLong(tfImportPrice.getText());
+            pet.setImportPrice(importPrice);
+            soldPrice = valid.convertStringToLong(tfSoldPrice.getText());
+            pet.setSoldPrice(soldPrice);
+            pet.setDescription(tfDescription.getText()+"");
+
+            String supID = supplier.getID(cbbSupplier.getSelectedItem().toString());
+            pet.setSupplierId(supID);
+            pet.setGender(cbbGender.getSelectedItem().toString());
+
+            String breedID = breed.getID(tfBreed.getText()+"");
+            pet.setBreedId(breedID);
+
+            pet.setColor(tfColor.getText()+"");
+            pet.setWeight(Integer.parseInt(tfWeight.getText()));
+            
+//            
+//            System.out.println("id : "+pet.getId());
+//            System.out.println("name : "+pet.getName());
+//            System.out.println("soldPrice: "+pet.getSoldPrice());
+//            System.out.println("importPrice: "+pet.getImportPrice());
+//            System.out.println("Des "+ pet.getDescription());
+//            System.out.println("sup :"+pet.getSupplierId());
+//            System.out.println("gender : "+pet.getGender());
+//            System.out.println("bre : "+pet.getBreedId());
+//            System.out.println("weight : "+pet.getWeight());
+//            System.out.println("color : "+pet.getColor());
+//            System.out.println("image : "+pet.getImageUrl());
+            
+            //chỉnh lại 
+            petBus.add(pet);
+            ui.refreshTable();
+            JOptionPane.showMessageDialog(null, "thêm thú cưng thành công");
+            this.dispose();
         }
         else{
-            pet.setImageUrl(imageUrl);
-            File sourceImageFile = new File(imagePath);
-            File destinationImageFile = new File("src/com/image/" + selectedFile.getName());
-            try {
-                Files.copy(sourceImageFile.toPath(), destinationImageFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
+            //cân nặng
+            if(!valid.isNumeric(tfWeight.getText()))
+            {
+                lbWeightWarn.setText("Vui lòng nhập đúng dữ liệu");
             }
+            else{
+                lbWeightWarn.setText("");
+            }
+            
+            //name
+            if(tfName.getText().isEmpty())
+            {
+                lbNameWarn.setText("Vui lòng nhập tên cho thú cưng");
+            }
+            else{
+                lbNameWarn.setText("");
+            }
+            
+            //importPrice
+            if(tfImportPrice.getText().isEmpty())
+            {
+                lbImportPriceWarn.setText("Vui lòng nhập giá nhập");
+            }
+            else{
+                lbImportPriceWarn.setText("");
+            }
+            
+            //soldPrice
+            if(tfSoldPrice.getText().isEmpty())
+            {
+                lbSoldPriceWarn.setText("Vui lòng nhập giá bán");
+            }
+            else{
+                lbSoldPriceWarn.setText("");
+            }
+            
+            //breed
+            if(tfBreed.getText().isEmpty())
+            {
+                lbBreedWarn.setText("Vui lòng chọn giống loài của thú");
+            }
+            else{
+                lbBreedWarn.setText("");
+            }
+            
+            //color
+            if(tfColor.getText().isEmpty())
+            {
+                lbColorWarn.setText("Vui lòng nhập màu lông");
+            }
+            else{
+                lbColorWarn.setText("");
+            }
+            
+            JOptionPane.showMessageDialog(null, "dữ liệu trong form chưa đủ hoặc chưa chính xác");
         }
         
-        pet.setName(tfName.getText()+"");
-        importPrice = valid.convertStringToLong(tfImportPrice.getText());
-        pet.setImportPrice(importPrice);
+        //--------------------------------------
         
         
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteImageActionPerformed
         // TODO add your handling code here:
-        if(imageUrl.equals("null"))
-        {
-            JOptionPane.showMessageDialog(null, "ảnh trống");
-        }
-        else{
+        
             imageUrl = "null";
             lbImage.setIcon(null);
-        }
+        
     }//GEN-LAST:event_btnDeleteImageActionPerformed
 
     private void btnAddImportPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImportPriceActionPerformed
@@ -421,6 +544,27 @@ public class AddPetForm extends javax.swing.JFrame {
         input.setVisible(true);
     }//GEN-LAST:event_btnAddSoldPriceActionPerformed
 
+    private void tfNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusLost
+        // TODO add your handling code here:
+        if(tfName.getText().isEmpty())
+        {
+            lbNameWarn.setText("Vui lòng nhập tên cho thú cưng");
+        }
+    }//GEN-LAST:event_tfNameFocusLost
+
+    private void tfWeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfWeightFocusLost
+        // TODO add your handling code here:
+        if(!valid.isNumeric(tfWeight.getText()))
+        {
+            lbWeightWarn.setText("Vui lòng nhập đúng dữ liệu");
+        }
+    }//GEN-LAST:event_tfWeightFocusLost
+
+    private void tfNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNameKeyPressed
+        // TODO add your handling code here:
+        lbNameWarn.setText("");
+    }//GEN-LAST:event_tfNameKeyPressed
+
     public void setBreed(String text)
     {
         tfBreed.setText(""+text);
@@ -428,11 +572,27 @@ public class AddPetForm extends javax.swing.JFrame {
     
     private void loadSupplierList()
     {
-        SupplierTempBUS supplier = new SupplierTempBUS();
         for(SupplierDTO sup : supplier.supList)
         {
             cbbSupplier.addItem(sup.getName());
         }
+    }
+    
+    boolean validInput()
+    {
+        boolean isValid;
+        if(tfName.getText().isEmpty() || 
+                !valid.isNumeric(tfWeight.getText()) || 
+                tfSoldPrice.getText().isEmpty() || 
+                tfImportPrice.getText().isEmpty() ||
+                tfColor.getText().isEmpty())
+        {
+            isValid = false;
+        }
+        else{
+            isValid = true;
+        }
+        return isValid;
     }
     
     
@@ -493,6 +653,8 @@ public class AddPetForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbBreedWarn;
+    private javax.swing.JLabel lbColorWarn;
     private javax.swing.JLabel lbImage;
     private javax.swing.JLabel lbImportPriceWarn;
     private javax.swing.JLabel lbNameWarn;
