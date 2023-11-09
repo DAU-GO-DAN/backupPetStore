@@ -19,6 +19,20 @@ public class EmployeeDTO {
     private String role;
     private long salary;
 
+    public EmployeeDTO() {
+    }
+
+    public EmployeeDTO(String id, String name, String phone, String address, LocalDate createdDate, String role, long salary) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.createdDate = createdDate;
+        this.role = role;
+        this.salary = salary;
+    }
+
+    
     public String getId() {
         return id;
     }

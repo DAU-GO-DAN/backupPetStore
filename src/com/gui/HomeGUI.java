@@ -290,6 +290,9 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
+        EmployeeGUI employeePanel = new EmployeeGUI();
+        mainPanel.setLayout(new GridLayout(1,1));
+        mainPanel.add(employeePanel);
 
     }//GEN-LAST:event_lEmployeeMouseClicked
 

@@ -13,8 +13,8 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public LoginGUI() {
         initComponents();
-        svgLogo.setSVGImage("com/image/logohinh.svg", 200, 190);
-        svgTitle.setSVGImage("com/image/Logo.svg", 350, 90);
+//        svgLogo.setSVGImage("com/image/logohinh.svg", 200, 190);
+//        svgTitle.setSVGImage("com/image/Logo.svg", 350, 90);
     }
 
     /**
