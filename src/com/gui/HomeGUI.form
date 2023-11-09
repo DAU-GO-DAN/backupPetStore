@@ -256,6 +256,9 @@
         <Component class="com.gui.SvgImage" name="svgLogo">
         </Component>
         <Component class="com.gui.SvgImage" name="svgLogout">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="svgLogoutMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

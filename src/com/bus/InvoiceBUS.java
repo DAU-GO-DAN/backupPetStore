@@ -4,6 +4,7 @@
  */
 package com.bus;
 
+import com.dao.CustomerDTO;
 import com.dao.InvoiceDAO;
 import com.dao.InvoiceDTO;
 import java.util.ArrayList;
@@ -45,5 +46,39 @@ public class InvoiceBUS {
        model.addRow(row);
     }
     return model;
+    }
+    
+     public ArrayList<InvoiceDTO> searchById(String id) {
+        ArrayList<InvoiceDTO> filteredList = new ArrayList<>();
+        for (InvoiceDTO inv : invList) {
+           // Kiểm tra xem mã hóa đơn, mã khách hàng hoặc mã nhân viên chứa chuỗi tìm kiếm
+        if (inv.getInvoiceID().toLowerCase().contains(id.toLowerCase()) ||
+            inv.getCustomerID().toLowerCase().contains(id.toLowerCase()) ||
+            inv.getEmployeeID().toLowerCase().contains(id.toLowerCase())) {
+           
+                filteredList.add(inv);
+            }
+        }
+        return filteredList;
+    }
+
+    public DefaultTableModel getModelId(String id){
+        ArrayList<InvoiceDTO> a = searchById(id);
+         DefaultTableModel Id = new  DefaultTableModel();
+         Id.addColumn("Mã hóa đơn");
+    Id.addColumn("Ngày tạo hóa đơn");
+    Id.addColumn("Tổng tiền");
+    Id.addColumn("Mã Nhân viên");
+    Id.addColumn("Mã khách hàng");
+   for (InvoiceDTO invc : a) {
+       Vector row = new Vector<>();
+       row.add(invc.getInvoiceID());
+       row.add(invc.getCreatedDate());
+       row.add(invc.getTotalAmount());
+       row.add(invc.getEmployeeID());
+       row.add(invc.getCustomerID());
+       Id.addRow(row);
+   }
+         return Id;
     }
 }

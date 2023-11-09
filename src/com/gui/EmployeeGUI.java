@@ -5,25 +5,32 @@
 package com.gui;
 
 import com.bus.EmployeeBUS;
+import com.dao.EmployeeDTO;
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author USER
- */
+
+
+
+
 public class EmployeeGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form EmployeeGUI
      */
-//    EmployeeBUS empBUS = new EmployeeBUS();
+    EmployeeBUS empBUS = new EmployeeBUS();
     public EmployeeGUI() {
         initComponents();
         btnadd.setSVGImage("com/image/add.svg", 20, 20);
         btndelete.setSVGImage("com/image/trash.svg", 20, 20);
         btnedit.setSVGImage("com/image/edit.svg", 25, 25);
         btnsort.setSVGImage("com/image/sort.svg", 20, 20);
+        
     }
 
     /**
@@ -35,21 +42,28 @@ public class EmployeeGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        findtextfield = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnfind = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        empTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btndelete = new com.gui.SvgImage();
         btnedit = new com.gui.SvgImage();
         btnsort = new com.gui.SvgImage();
         btnadd = new com.gui.SvgImage();
+        readEmp = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1280, 620));
+
+        findtextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                findtextfieldKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
 
@@ -73,12 +87,20 @@ public class EmployeeGUI extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel2.setBackground(new java.awt.Color(255, 153, 0));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Tìm kiếm");
+        btnfind.setBackground(new java.awt.Color(255, 153, 0));
+        btnfind.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnfind.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnfind.setText("Tìm kiếm");
+        btnfind.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnfindMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1280, 530));
+
+        empTable.setAutoCreateRowSorter(true);
+        empTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -117,7 +139,7 @@ public class EmployeeGUI extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -131,16 +153,31 @@ public class EmployeeGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(20);
+        empTable.setPreferredSize(new java.awt.Dimension(1280, 530));
+        empTable.setShowGrid(false);
+        jScrollPane1.setViewportView(empTable);
+        if (empTable.getColumnModel().getColumnCount() > 0) {
+            empTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            empTable.getColumnModel().getColumn(2).setPreferredWidth(15);
+            empTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+            empTable.getColumnModel().getColumn(5).setPreferredWidth(15);
+            empTable.getColumnModel().getColumn(6).setPreferredWidth(20);
         }
+        empTable.setSize(new Dimension(1280,530));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btndelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btndeleteMouseClicked(evt);
+            }
+        });
+
+        btnedit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btneditMouseClicked(evt);
+            }
+        });
 
         btnadd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -175,22 +212,35 @@ public class EmployeeGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        readEmp.setText("XEM ");
+        readEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readEmpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(findtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(292, 292, 292)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(466, 466, 466)
+                        .addComponent(readEmp)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,28 +248,109 @@ public class EmployeeGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addComponent(findtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(btnfind, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(readEmp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnaddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddMouseClicked
-//        empBUS.add(emp);
-        String flag = "add";
-        EmployeeGUIadd empAdd = new EmployeeGUIadd(flag);
+        String id = empBUS.generateEmployeeID();
+        LocalDate currentDate = LocalDate.now();
+        String createdDate = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        EmployeeGUIinfo empAdd = new EmployeeGUIinfo(id , createdDate);
         empAdd.setVisible(true);
-            // TODO add your handling code here:
+  
     }//GEN-LAST:event_btnaddMouseClicked
+    
+    private void btneditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditMouseClicked
+        // TODO add your handling code here:
+        String flag = "edit";
+        int rowSelected = empTable.getSelectedRow();
+        
+        /*ép kiểu từng dòng*/
+        String id = (String) empTable.getValueAt(rowSelected, 0);
+        String name = (String) empTable.getValueAt(rowSelected, 1);
+        String phone = (String) empTable.getValueAt(rowSelected, 2);
+        String address = (String) empTable.getValueAt(rowSelected, 3);
+        LocalDate creDate = (LocalDate) empTable.getValueAt(rowSelected, 4);
+        String role = (String) empTable.getValueAt(rowSelected, 5);
+        Long salary = (Long) empTable.getValueAt(rowSelected, 6);
+        
+        /*ép kiểu cho for*/
+//        String[] value = new String[7];
+//        for(int i = 0; i <= 7; i++){
+//            value[i] = (String empTable.getValueAt(rowSelected, i);
+//        }
+        
+        /*truyền đối số cho DTO*/
+        EmployeeDTO empDTO = new EmployeeDTO(id, name, phone, address, creDate, role, 0);
+//        EmployeeDTO empDTO = new EmployeeDTO(value[0], value[1], value[2], value[3], LocalDate.parse(value[4], DateTimeFormatter.ofPattern("dd-MM-yyyy")), value[5], Long.parseLong(value[6]));
+
+        EmployeeGUIinfo empEdit = new EmployeeGUIinfo(empDTO,flag);
+        empEdit.setVisible(true);
+    }//GEN-LAST:event_btneditMouseClicked
+
+    private void readEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readEmpActionPerformed
+        // TODO add your handling code here:
+        empBUS.readData();
+        empTable.setModel(empBUS.printTable());
+
+        
+
+    }//GEN-LAST:event_readEmpActionPerformed
+
+    private void btndeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndeleteMouseClicked
+        // TODO add your handling code here:
+        String empID = (String) empTable.getValueAt(empTable.getSelectedRow() ,0);
+        boolean deleteSucess =  empBUS.delete(empID);
+        
+        if(deleteSucess){
+            DefaultTableModel newModel = empBUS.printTable();
+            empTable.setModel(newModel);
+            
+        }else{
+//            JOptionPane.showMessageDialog(null, "Xóa không thành công");
+
+        }
+    }//GEN-LAST:event_btndeleteMouseClicked
+
+    private void btnfindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnfindMouseClicked
+        // TODO add your handling code here:
+//        EmployeeBUS empBUS = new EmployeeBUS();
+        if(empBUS.containsOnlyLetters(findtextfield.getText())){
+            empTable.setModel(empBUS.getNameModel(findtextfield.getText()));
+        }else{
+            empTable.setModel(empBUS.getIdModel(findtextfield.getText()));
+        }
+    }//GEN-LAST:event_btnfindMouseClicked
+
+    private void findtextfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_findtextfieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            if(empBUS.containsOnlyLetters(findtextfield.getText())){
+                empTable.setModel(empBUS.getNameModel(findtextfield.getText()));
+            }else{
+                empTable.setModel(empBUS.getIdModel(findtextfield.getText()));
+            }
+        }
+    }//GEN-LAST:event_findtextfieldKeyPressed
+    
+  
+
+    
+    
+    
     public static void main(String args[]) {
         JFrame f = new JFrame();
         f.setSize(1280,620);
@@ -235,13 +366,14 @@ public class EmployeeGUI extends javax.swing.JPanel {
     private com.gui.SvgImage btnadd;
     private com.gui.SvgImage btndelete;
     private com.gui.SvgImage btnedit;
+    private javax.swing.JLabel btnfind;
     private com.gui.SvgImage btnsort;
+    private javax.swing.JTable empTable;
+    private javax.swing.JTextField findtextfield;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton readEmp;
     // End of variables declaration//GEN-END:variables
 }
