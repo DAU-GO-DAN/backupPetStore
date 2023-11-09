@@ -4,6 +4,7 @@
  */
 package com.gui;
 
+import com.bus.CustomerBUS;
 import com.dao.AccountDTO;
 import static java.awt.Color.black;
 import static java.awt.Color.red;
@@ -12,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -33,6 +35,7 @@ public class HomeGUI extends javax.swing.JFrame {
         colorChangeTitle();
         svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
         svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     
@@ -150,6 +153,12 @@ public class HomeGUI extends javax.swing.JFrame {
         lAccInfo.setForeground(new java.awt.Color(240, 81, 35));
         lAccInfo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        svgLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pNavigatorLayout = new javax.swing.GroupLayout(pNavigator);
         pNavigator.setLayout(pNavigatorLayout);
         pNavigatorLayout.setHorizontalGroup(
@@ -263,10 +272,14 @@ public class HomeGUI extends javax.swing.JFrame {
 
     private void lCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lCustomerMouseClicked
         // TODO add your handling code here:
+        CustomerBUS cusBUS = new CustomerBUS();
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-
+        CustomerGUI customerPanel = new CustomerGUI();
+        mainPanel.setLayout(new GridLayout(1,1));
+        customerPanel.getData();
+        mainPanel.add(customerPanel);
     }//GEN-LAST:event_lCustomerMouseClicked
 
     private void limportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limportMouseClicked
@@ -274,7 +287,10 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-
+        CustomerGUI customerPanel = new CustomerGUI();
+        mainPanel.setLayout(new GridLayout(1,1));
+        customerPanel.getData();
+        mainPanel.add(customerPanel);
     }//GEN-LAST:event_limportMouseClicked
 
     private void lAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAccountMouseClicked
@@ -282,7 +298,10 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-
+        CustomerGUI customerPanel = new CustomerGUI();
+        mainPanel.setLayout(new GridLayout(1,1));
+        customerPanel.getData();
+        mainPanel.add(customerPanel);
     }//GEN-LAST:event_lAccountMouseClicked
 
     private void lEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lEmployeeMouseClicked
@@ -356,38 +375,38 @@ public class HomeGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new HomeGUI().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(HomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+////                new HomeGUI().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lAccInfo;

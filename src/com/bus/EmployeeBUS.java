@@ -8,7 +8,6 @@ import com.dao.CustomerDTO;
 import com.dao.EmployeeDAO;
 import com.dao.EmployeeDTO;
 import com.gui.EmployeeGUI;
-import com.microsoft.sqlserver.jdbc.StringUtils;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;

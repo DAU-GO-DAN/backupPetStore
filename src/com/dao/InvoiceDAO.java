@@ -33,5 +33,25 @@ public class InvoiceDAO {
         conn = MyConnection.getConnection();
     }
     
-    
+    public ArrayList readData(){
+         ArrayList<InvoiceDTO> InvList= new ArrayList<>();
+         try {
+            String qry="SELECT * FROM Invoice";
+            stmt=conn.createStatement();
+            rs=stmt.executeQuery(qry);
+            while(rs.next()){
+                InvoiceDTO Invv= new InvoiceDTO();
+                Invv.setInvoiceID(rs.getString("id"));
+                Invv.setCreatedDate(rs.getDate("createdDate").toLocalDate());
+                Invv.setTotalAmount((long) rs.getFloat("totalAmount"));
+                Invv.setEmployeeID(rs.getString("employeeID"));
+                Invv.setCustomerID(rs.getString("customerID"));
+                InvList.add(Invv);
+                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Lỗi tải dữ liệu !");
+        }
+         return InvList;
+    }
 }

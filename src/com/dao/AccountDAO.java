@@ -56,10 +56,10 @@ public class AccountDAO {
         return accountList;
     }
     
-    public AccountDTO getAccount(String username, String password){
+    public AccountDTO getAccount(String username){
         AccountDTO accTemp = new AccountDTO();
         try{
-            String qry = "select * from Account " + "where username = '"+username+"' and password = '"+password+"'";
+            String qry = "select * from Account " + "where username = '"+username+"'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
             if(rs.next()){
@@ -68,6 +68,7 @@ public class AccountDAO {
                 accTemp.setPassword(rs.getString("password"));
                 accTemp.setRole(rs.getString("role"));
             }
+            
         }
         catch(SQLException e){
             
@@ -75,19 +76,37 @@ public class AccountDAO {
         return accTemp;
     }
     
-    public boolean loginCheck(String username, String password){
-        boolean flag = false; 
+    public boolean checkExist (String username){
         try{
-            String qry = "select * from Account " + "where username = '"+username+"' and password = '"+password+"'";
+            String qry = "select * from Account " + "where username = '"+username+"'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(qry);
             if(rs.next()){
-                flag = true;
-            }
+                return true;
+            }        
         }
         catch(SQLException e){
             
         }
-        return flag;
+        return false;
+    }
+    public ArrayList readData(){
+        ArrayList<AccountDTO> accList = new ArrayList<>();
+        try{
+            String qry = "select * from Account";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                AccountDTO accTemp = new AccountDTO();
+                accTemp.setUserId(rs.getString("userID"));
+                accTemp.setUsername(rs.getString("userName"));
+                accTemp.setPassword(rs.getString("passworld"));
+                accTemp.setRole(rs.getString("role"));
+                accList.add(accTemp);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Tải dữ liệu không thành công");
+        }
+        return accList;
     }
 }
