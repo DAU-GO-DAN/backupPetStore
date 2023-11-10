@@ -12,7 +12,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -284,13 +287,20 @@ public class HomeGUI extends javax.swing.JFrame {
 
     private void limportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limportMouseClicked
         // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.revalidate();
-        mainPanel.repaint();
-        CustomerGUI customerPanel = new CustomerGUI();
-        mainPanel.setLayout(new GridLayout(1,1));
-        customerPanel.getData();
-        mainPanel.add(customerPanel);
+        try {
+            // TODO add your handling code here:
+            mainPanel.removeAll();
+            mainPanel.revalidate();
+            mainPanel.repaint();
+            
+            ImportGUI importPanel;
+            
+            importPanel = new ImportGUI();
+            mainPanel.setLayout(new GridLayout(1,1));
+            mainPanel.add(importPanel);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_limportMouseClicked
 
     private void lAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAccountMouseClicked

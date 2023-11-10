@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 /**
  *
  * @author minht
@@ -50,31 +52,9 @@ public class ImportGUI extends javax.swing.JPanel {
             model.addRow(rowData);
         }
     }
-        public void addRowtoDetailTable(String impID) throws SQLException{
-        ImportDetailBUS impDetBUS = new ImportDetailBUS();
-        ArrayList<ImportDetailDTO> allDetList =impDetBUS.getList();
-        ArrayList<ImportDetailDTO> tempDetList =new ArrayList<>();
         
-        for (int i = 0; i < allDetList.size(); i++) {
-            if(allDetList.get(i).getImportID().equals(impID))
-                tempDetList.add(allDetList.get(i));
-        }
-        impDetList=tempDetList;
         
-        DefaultTableModel model = (DefaultTableModel) tblImportDetail.getModel();
-        model.setRowCount(0);
-        Object rowData[] = new Object[7];
-        for (int i = 0; i < impDetList.size(); i++) {
-            rowData[0] = impDetList.get(i).getImportID();
-            rowData[1] = impDetList.get(i).getProductID();
-            rowData[2] = impDetList.get(i).getProductName();
-            rowData[3] = impDetList.get(i).getQuantity();
-            rowData[4] = impDetList.get(i).getImportPrice();
-            rowData[5] = impDetList.get(i).getSoldPrice();
-            rowData[6] = impDetList.get(i).getAmount();
-            model.addRow(rowData);
-        }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,21 +68,29 @@ public class ImportGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         pnBody = new javax.swing.JPanel();
         pnToolBar = new javax.swing.JPanel();
-        tfSearch = new javax.swing.JTextField();
-        btnSearch = new com.gui.SvgImage();
-        btnRefresh = new com.gui.SvgImage();
         btnAdd = new com.gui.SvgImage();
+        btnXem = new com.gui.SvgImage();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblImport = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblImportDetail = new javax.swing.JTable();
+        pnlSearch = new javax.swing.JPanel();
+        tfSearch = new javax.swing.JTextField();
+        btnSearch = new com.gui.SvgImage();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbTypeSearch = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        tfFrom = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tfTo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        btnRefresh = new com.gui.SvgImage();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnHeader.setBackground(new java.awt.Color(240, 81, 25));
         pnHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("NHẬP HÀNG");
         jLabel1.setToolTipText("");
@@ -117,26 +105,17 @@ public class ImportGUI extends javax.swing.JPanel {
 
         pnToolBar.setBackground(new java.awt.Color(240, 81, 25));
         pnToolBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnToolBar.add(tfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 1000, 40));
-
-        btnSearch.setText("Search");
-        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSearchMouseClicked(evt);
-            }
-        });
-        pnToolBar.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 10, 40, 40));
-
-        btnRefresh.setText("Refresh");
-        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRefreshMouseClicked(evt);
-            }
-        });
-        pnToolBar.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 10, 40, 40));
 
         btnAdd.setText("Add");
         pnToolBar.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 10, 40, 40));
+
+        btnXem.setText("Xem");
+        btnXem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXemMouseClicked(evt);
+            }
+        });
+        pnToolBar.add(btnXem, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 10, 40, 40));
 
         pnBody.add(pnToolBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 60));
 
@@ -167,11 +146,6 @@ public class ImportGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblImport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblImportMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblImport);
         if (tblImport.getColumnModel().getColumnCount() > 0) {
             tblImport.getColumnModel().getColumn(0).setResizable(false);
@@ -181,85 +155,116 @@ public class ImportGUI extends javax.swing.JPanel {
             tblImport.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        pnBody.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 400, 435));
+        pnBody.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 700, 435));
 
-        jScrollPane2.setBackground(new java.awt.Color(255, 102, 51));
+        pnlSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlSearch.add(tfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 90, 325, 50));
 
-        tblImportDetail.setBackground(new java.awt.Color(255, 102, 51));
-        tblImportDetail.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        tblImportDetail.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Giá bán", "Thành tiền"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblImportDetail);
-        if (tblImportDetail.getColumnModel().getColumnCount() > 0) {
-            tblImportDetail.getColumnModel().getColumn(0).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblImportDetail.getColumnModel().getColumn(1).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(2).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(3).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(4).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(5).setResizable(false);
-            tblImportDetail.getColumnModel().getColumn(6).setResizable(false);
-        }
+        pnlSearch.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, 40, 40));
 
-        pnBody.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 820, 435));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setText("Mã");
+        pnlSearch.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 90, -1, 50));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setText("Theo");
+        pnlSearch.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, -1, 50));
+
+        cbTypeSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày", "Tổng giá" }));
+        pnlSearch.add(cbTypeSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 170, 325, 50));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel4.setText("Từ");
+        pnlSearch.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 240, -1, 50));
+        pnlSearch.add(tfFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 290, 200, 50));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel5.setText("Đến");
+        pnlSearch.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, 50));
+        pnlSearch.add(tfTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 200, 50));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("TÌM KIẾM");
+        pnlSearch.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 475, 50));
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
+        pnlSearch.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 40, 40));
+
+        pnBody.add(pnlSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 475, 435));
 
         add(pnBody, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1280, 520));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblImportMouseClicked
-        // TODO add your handling code here:
-        int i=tblImport.getSelectedRow();
-        try {
-            addRowtoDetailTable((String) tblImport.getModel().getValueAt(i, 0));
-        } catch (SQLException ex) {
-            Logger.getLogger(ImportGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tblImportMouseClicked
-
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
         ArrayList<ImportDTO> filter =new ArrayList<>();
-        
+        ArrayList<ImportDTO> filterID =new ArrayList<>();
+        ArrayList<ImportDTO> filterPrice =new ArrayList<>();
         //ArrayList<ImportDTO> filterEmployeeID =new ArrayList<>();
         String search = tfSearch.getText();
-        System.out.println("Txt: "+search+" Type: "+search.getClass().getName());
-        if(search.length()!=0){
+        long priceFrom =0;
+        long priceTo =0;
+        if( tfFrom.getText().length()>0){
+            priceFrom = Long.parseLong(tfFrom.getText());
+        }
+        if( tfTo.getText().length()>0){
+            priceTo = Long.parseLong(tfTo.getText());
+        }
+         //filter.clear();
+        if(search.length()!=0)
+        {
             filter.clear();
             for(int i=0;i<impList.size();i++){
                 if(impList.get(i).getImportID().contains(search)
                         || impList.get(i).getEmployeeID().contains(search)
-                        || impList.get(i).getCreatedDate().contains(search)
-                        || search.equals(""+impList.get(i).getTotalAmount())
                         ){
                     boolean isExist=false;
                     for(int j=0;j<filter.size();j++){
                         if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
                     }
-                    if(!isExist)
-                    filter.add(impList.get(i));
+                    if(!isExist) filterID.add(impList.get(i));
+                    }
+                    
                 }
-                
+            filter=filterID;
+            }
+        
+        if(cbTypeSearch.getSelectedIndex()==1){
+            filter.clear();
+            for(int i=0;i<impList.size();i++){
+                            boolean isExist=false;
+                            if(tfTo.getText().length()>0){
+                                if(impList.get(i).getTotalAmount()>=priceFrom && impList.get(i).getTotalAmount()<=priceTo){
+//                                    for(int j=0;j<filter.size();j++){
+//                                        if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
+//                                        if(!isExist) filterPrice.add(impList.get(i));
+//                                    }
+                                    filterPrice.add(impList.get(i));
+                                }
+                            }
+                            else {
+                                if(impList.get(i).getTotalAmount()>=priceFrom){
+//                                     for(int j=0;j<filter.size();j++){
+//                                        if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
+//                                        if(!isExist) 
+//                                            filterPrice.add(impList.get(i));
+//                                    }
+                                     filterPrice.add(impList.get(i));
+                                }
+                            } 
+                            filter=filterPrice;
             }
 
         //}
@@ -280,19 +285,39 @@ public class ImportGUI extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_btnRefreshMouseClicked
 
+    private void btnXemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXemMouseClicked
+        // TODO add your handling code here:
+        int i=tblImport.getSelectedRow();
+        ImportDTO tempDTO = new ImportDTO((String) tblImport.getModel().getValueAt(i, 0)
+                ,(String) tblImport.getModel().getValueAt(i, 1)
+                ,(long) tblImport.getModel().getValueAt(i, 2)
+                ,(String) tblImport.getModel().getValueAt(i, 3)
+        );
+        
+        new ImportDetailGUI(tempDTO).setVisible(true);
+    }//GEN-LAST:event_btnXemMouseClicked
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.gui.SvgImage btnAdd;
     private com.gui.SvgImage btnRefresh;
     private com.gui.SvgImage btnSearch;
+    private com.gui.SvgImage btnXem;
+    private javax.swing.JComboBox<String> cbTypeSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnBody;
     private javax.swing.JPanel pnHeader;
     private javax.swing.JPanel pnToolBar;
+    private javax.swing.JPanel pnlSearch;
     private javax.swing.JTable tblImport;
-    private javax.swing.JTable tblImportDetail;
+    private javax.swing.JTextField tfFrom;
     private javax.swing.JTextField tfSearch;
+    private javax.swing.JTextField tfTo;
     // End of variables declaration//GEN-END:variables
 }

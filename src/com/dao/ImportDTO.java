@@ -16,7 +16,8 @@ public class ImportDTO {
     public ImportDTO(){
         
     }
-    public ImportDTO(String createdDate, int amount, String empId) {
+    public ImportDTO(String importID,String createdDate, long amount, String empId) {
+        this.importID=importID;
         this.createdDate = createdDate;
         this.totalAmount = amount;
         this.employeeID = empId;
