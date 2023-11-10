@@ -214,17 +214,17 @@ public class ImportDetailGUI extends javax.swing.JFrame {
          empBUS.readData();
          EmployeeDTO empDTO = empBUS.searchByID(impDTO.getEmployeeID());
         
-        String s="                                      CHI TIẾT PHIẾU NHẬP                      \n\n";
-        s+="    MÃ PHIẾU NHẬP: " + impDTO.getImportID() +"  \n";
-        s+="    THỜI GIAN: \t" + impDTO.getCreatedDate() + "    \n";
-        s+="    NHÂN VIÊN: \t" + empDTO.getName() + "    \n";
+        String s="                      CHI TIẾT PHIẾU NHẬP                      \n\n";
+        s+="MÃ PHIẾU NHẬP: " + impDTO.getImportID() +"  \n";
+        s+="THỜI GIAN: " + impDTO.getCreatedDate() + "    \n";
+        s+="NHÂN VIÊN: " + empDTO.getName() + "    \n";
         s+= "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
         long sum;
         for(int i=0;i<impDetList.size();i++){
             s+=impDetList.get(i).getProductName() + "\n";
             s+="Đơn giá: " + impDetList.get(i).getImportPrice() ;
-            s+="\t          Số lượng: " + impDetList.get(i).getQuantity();
-            s+="\t  Tổng: " + impDetList.get(i).getAmount() +"\n";
+            s+="\t Số lượng: " + impDetList.get(i).getQuantity();
+            s+="\t Tổng: " + impDetList.get(i).getAmount() +"\n";
             s+= "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
         }
         s+="\n Thành tiền: " + totalAmount() +"VND\n";

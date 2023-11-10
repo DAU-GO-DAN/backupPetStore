@@ -4,6 +4,11 @@
  */
 package com.gui;
 
+import java.awt.print.PrinterException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author minht
@@ -50,10 +55,26 @@ public class ImportPrint extends javax.swing.JFrame {
 
         btnPrint.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnPrint.setText("IN");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 260, 100, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        try {
+            // TODO add your handling code here:
+            ta.print();
+             JOptionPane.showMessageDialog(null, "In thành công !");
+            this.dispose();
+        } catch (PrinterException ex) {
+            Logger.getLogger(ImportPrint.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
