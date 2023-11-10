@@ -176,7 +176,7 @@ public class ImportGUI extends javax.swing.JPanel {
         jLabel3.setText("Theo");
         pnlSearch.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, -1, 50));
 
-        cbTypeSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày", "Tổng giá" }));
+        cbTypeSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày", "Tổng giá", "Không" }));
         pnlSearch.add(cbTypeSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 170, 325, 50));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -210,9 +210,6 @@ public class ImportGUI extends javax.swing.JPanel {
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
         ArrayList<ImportDTO> filter =new ArrayList<>();
-        ArrayList<ImportDTO> filterID =new ArrayList<>();
-        ArrayList<ImportDTO> filterPrice =new ArrayList<>();
-        //ArrayList<ImportDTO> filterEmployeeID =new ArrayList<>();
         String search = tfSearch.getText();
         long priceFrom =0;
         long priceTo =0;
@@ -222,58 +219,49 @@ public class ImportGUI extends javax.swing.JPanel {
         if( tfTo.getText().length()>0){
             priceTo = Long.parseLong(tfTo.getText());
         }
-         //filter.clear();
-        if(search.length()!=0)
+        boolean isExist=false;
+        if(search.length()!=0 && cbTypeSearch.getSelectedIndex()==2)
         {
-            filter.clear();
             for(int i=0;i<impList.size();i++){
-                if(impList.get(i).getImportID().contains(search)
-                        || impList.get(i).getEmployeeID().contains(search)
+                if(impList.get(i).getImportID().equals(search)
+                        || impList.get(i).getEmployeeID().equals(search)
                         ){
-                    boolean isExist=false;
-                    for(int j=0;j<filter.size();j++){
-                        if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
+                            isExist=false;
+                            for(int j=0;j<filter.size();j++){
+                                if(filter.get(j).getImportID().equals(impList.get(i).getImportID())) isExist=true;
+                            }
+                            if(!isExist) filter.add(impList.get(i));
                     }
-                    if(!isExist) filterID.add(impList.get(i));
-                    }
-                    
                 }
-            filter=filterID;
-            }
+        }
         
         if(cbTypeSearch.getSelectedIndex()==1){
-            filter.clear();
-            for(int i=0;i<impList.size();i++){
-                            boolean isExist=false;
-                            if(tfTo.getText().length()>0){
-                                if(impList.get(i).getTotalAmount()>=priceFrom && impList.get(i).getTotalAmount()<=priceTo){
-//                                    for(int j=0;j<filter.size();j++){
-//                                        if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
-//                                        if(!isExist) filterPrice.add(impList.get(i));
-//                                    }
-                                    filterPrice.add(impList.get(i));
-                                }
-                            }
-                            else {
-                                if(impList.get(i).getTotalAmount()>=priceFrom){
-//                                     for(int j=0;j<filter.size();j++){
-//                                        if(impList.get(i).getImportID().equals(filter.get(j).getImportID())) isExist=true;
-//                                        if(!isExist) 
-//                                            filterPrice.add(impList.get(i));
-//                                    }
-                                     filterPrice.add(impList.get(i));
-                                }
-                            } 
-                            filter=filterPrice;
+            if(tfFrom.getText().length()>0 && tfTo.getText().length()>0){
+                if(search.length()==0){
+                    for(int i=0;i<impList.size();i++){
+                        if(impList.get(i).getTotalAmount()>=priceFrom && impList.get(i).getTotalAmount()<=priceTo){
+                            filter.add(impList.get(i));
+                        }
+                    }
+                }
+                else {
+                    for(int i=0;i<impList.size();i++){
+                        if(impList.get(i).getTotalAmount()>=priceFrom && impList.get(i).getTotalAmount()<=priceTo && (impList.get(i).getImportID().equals(search) || impList.get(i).getEmployeeID().equals(search))){
+                            filter.add(impList.get(i));
+                        }
+                    }
+                }
             }
-
-        //}
+            else {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập khoảng giá!");
+            }
+        }
          try {
                 addRowtoImportTable(filter);
             } catch (SQLException ex) {
                 Logger.getLogger(ImportGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        if(filter.isEmpty())  JOptionPane.showMessageDialog(null, "Không tìm thấy!");
     }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
