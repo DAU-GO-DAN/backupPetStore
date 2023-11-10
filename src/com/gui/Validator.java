@@ -6,6 +6,7 @@ package com.gui;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.Normalizer;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,11 +47,20 @@ public class Validator {
         return result;
     }
     
+    
+    
     public String formatMoney(long amount)
     {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
         symbols.setDecimalSeparator('.');
         DecimalFormat formatter = new DecimalFormat("###,###.##", symbols);
         return formatter.format(amount);
+    }
+    
+    public String normalizeString(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        normalized = normalized.replaceAll("[đĐ]", "d");
+        normalized = normalized.replaceAll("[^\\p{ASCII} \\t\\n\\x0B\\f\\r]", "");
+        return normalized;
     }
 }
