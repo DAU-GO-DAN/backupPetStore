@@ -75,7 +75,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="notiAdress" pref="407" max="32767" attributes="0"/>
+                                      <Component id="notiAddress" pref="407" max="32767" attributes="0"/>
                                       <Component id="notiName" max="32767" attributes="0"/>
                                       <Component id="tfPhone" max="32767" attributes="0"/>
                                       <Component id="tfAddress" alignment="0" max="32767" attributes="0"/>
@@ -123,7 +123,7 @@
                       <Component id="lAddress" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  <Component id="notiAdress" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="notiAddress" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lCreatedDate" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -203,6 +203,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfCusNameFocusLost"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfCusNameKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfPhone">
@@ -213,7 +214,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfPhoneFocusLost"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPhoneKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPhoneKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfAddress">
@@ -224,6 +225,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfAddressFocusLost"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfAddressKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lCreatedDateInfo">
@@ -254,7 +256,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="notiPhone">
         </Component>
-        <Component class="javax.swing.JLabel" name="notiAdress">
+        <Component class="javax.swing.JLabel" name="notiAddress">
         </Component>
       </SubComponents>
     </Container>

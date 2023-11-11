@@ -7,6 +7,7 @@ package com.bus;
 import com.dao.CustomerDAO;
 import com.dao.CustomerDTO;
 import com.gui.CustomerGUI;
+import java.text.Normalizer;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -34,18 +35,18 @@ public class CustomerBUS {
         cusDAO.edit(cusTemp, id);
         cusList.removeIf(cus -> cus.getCusID().equals(id));
         cusList.add(cusTemp);
-        new CustomerGUI().reloadData();
     }
     
     public ArrayList<CustomerDTO> searchByName(String name) {
         ArrayList<CustomerDTO> filteredList = new ArrayList<>();
         for (CustomerDTO cus : cusList) {
-            if (cus.getCusName().toLowerCase().contains(name.toLowerCase())) {
+            if (normalizeString(cus.getCusName()).toLowerCase().contains(name.toLowerCase())) {
                 filteredList.add(cus);
             }
         }
         return filteredList;
     }
+    
 
     
     public CustomerDTO searchByPhone(String phone){
@@ -53,6 +54,8 @@ public class CustomerBUS {
             if(cus.getPhone().startsWith(phone)) return cus;
         }
         return null;
+        
+        
     }
     
     public void readData(){
@@ -156,5 +159,13 @@ public class CustomerBUS {
     // Kiểm tra chuỗi chỉ có số
     public boolean isNum(String s){
         return s.matches("\\d+");
+    }
+    
+    //Kiểm tra chuỗi không có tiếng việt
+    static public String normalizeString(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        normalized = normalized.replaceAll("[đĐ]", "d");
+        normalized = normalized.replaceAll("[^\\p{ASCII} \\t\\n\\x0B\\f\\r]", "");
+        return normalized;
     }
 }

@@ -5,6 +5,7 @@
 package com.gui;
 
 import com.bus.SupplierBUS;
+import com.dao.SupplierDTO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -41,7 +42,7 @@ public class SupplierGUI extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        tfSearch = new javax.swing.JTextField();
         svgSearch = new com.gui.SvgImage();
         jLabel2 = new javax.swing.JLabel();
         svgReload = new com.gui.SvgImage();
@@ -110,10 +111,16 @@ public class SupplierGUI extends javax.swing.JPanel {
         table.setShowVerticalLines(true);
         jScrollPane1.setViewportView(table);
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfSearchActionPerformed(evt);
+            }
+        });
+
+        svgSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgSearchMouseClicked(evt);
             }
         });
 
@@ -126,6 +133,11 @@ public class SupplierGUI extends javax.swing.JPanel {
             }
         });
 
+        svgEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                svgEditMouseClicked(evt);
+            }
+        });
         svgEdit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 svgEditKeyPressed(evt);
@@ -160,7 +172,7 @@ public class SupplierGUI extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(svgSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90)
@@ -190,7 +202,7 @@ public class SupplierGUI extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(svgSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                                .addComponent(tfSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                             .addComponent(svgDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(svgAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18))
@@ -215,9 +227,9 @@ public class SupplierGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfSearchActionPerformed
 
     private void svgReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgReloadMouseClicked
         //Xem và reload dữ liệu
@@ -227,31 +239,52 @@ public class SupplierGUI extends javax.swing.JPanel {
 
     private void svgDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgDeleteMouseClicked
         //Xóa 1 record khỏi table và database
-        try{
-            String s = (String) table.getValueAt(table.getSelectedRow(), 0); //Nhận giá trị tại hàng được chọn cột 0 (tức id)
-            supBUS.delete(s);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Xóa không thành công");
-        }
-        
+        supBUS.delete((String) table.getValueAt(table.getSelectedRow(), 0));
+        this.reloadData();
     }//GEN-LAST:event_svgDeleteMouseClicked
 
     private void svgAddKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_svgAddKeyPressed
        
     }//GEN-LAST:event_svgAddKeyPressed
 
+    public void reloadData(){
+        table.removeAll();
+        table.repaint();
+        supBUS.readData();
+        table.setModel(supBUS.getModel());
+    }
+    
     private void svgEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_svgEditKeyPressed
-        //Sửa các thông tin của nhà cung cấp
-        String s = (String) table.getValueAt(table.getSelectedRow(), 0);
-//        sup.edit()
+
     }//GEN-LAST:event_svgEditKeyPressed
 
     private void svgAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgAddMouseClicked
         //Thêm 1 nhà cung cấp vào database
-        String id = supBUS.generateSupplierID();
-        SupplierInfoGUI supInfo = new SupplierInfoGUI(id);
+        SupplierInfoGUI supInfo = new SupplierInfoGUI(this);
         supInfo.setVisible(true);
+        reloadData();
     }//GEN-LAST:event_svgAddMouseClicked
+
+    private void svgEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgEditMouseClicked
+        int rowSelected = table.getSelectedRow();
+        String flag = "edit";
+        String[] value = new String[4];
+        for(int i=0; i<4; i++){
+            value[i] = (String) table.getValueAt(rowSelected, i);
+        }
+        SupplierDTO sup = new SupplierDTO(value[0], value[1], value[2], value[3]);
+        SupplierInfoGUI supInfo = new SupplierInfoGUI(sup, flag, this);
+        supInfo.setVisible(true);
+    }//GEN-LAST:event_svgEditMouseClicked
+
+    private void svgSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_svgSearchMouseClicked
+        // TODO add your handling code here:
+        if(supBUS.isAlphaString(supBUS.normalization(supBUS.normalization(tfSearch.getText())))){
+            table.setModel(supBUS.getNameModel(supBUS.normalization(tfSearch.getText())));
+        }else{
+            table.setModel(supBUS.getIdModel(supBUS.normalization(tfSearch.getText())));
+        }
+    }//GEN-LAST:event_svgSearchMouseClicked
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -266,12 +299,12 @@ public class SupplierGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private com.gui.SvgImage svgAdd;
     private com.gui.SvgImage svgDelete;
     private com.gui.SvgImage svgEdit;
     private com.gui.SvgImage svgReload;
     private com.gui.SvgImage svgSearch;
     private javax.swing.JTable table;
+    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }

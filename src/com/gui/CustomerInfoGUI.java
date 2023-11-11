@@ -4,6 +4,7 @@ import com.bus.CustomerBUS;
 import com.dao.CustomerDTO;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -18,17 +19,19 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
     CustomerBUS cusBUS = new CustomerBUS();
     String flag = "";
     DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    
-    public CustomerInfoGUI (){
+    CustomerGUI ui;
+    public CustomerInfoGUI (CustomerGUI ui){
+        this.ui = ui;
         initComponents();
         LocalDate creDate = LocalDate.now();
         lCreatedDateInfo.setText(creDate.format(newFormat));
         lIDInfo.setText(cusBUS.generateCustomerID());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        btnConfirm.setEnabled(false);
     }
 
-    CustomerGUI ui;
+    
     public CustomerInfoGUI(CustomerDTO cus, String flag, CustomerGUI ui) {
         this.flag = flag;
         this.ui = ui;
@@ -41,6 +44,7 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
         lCreatedDateInfo.setText(formattedDate);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        btnConfirm.setEnabled(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -63,7 +67,7 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
         notiName = new javax.swing.JLabel();
         notiPhone = new javax.swing.JLabel();
-        notiAdress = new javax.swing.JLabel();
+        notiAddress = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +99,11 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
                 tfCusNameFocusLost(evt);
             }
         });
+        tfCusName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCusNameKeyPressed(evt);
+            }
+        });
 
         tfPhone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         tfPhone.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -103,8 +112,8 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
             }
         });
         tfPhone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tfPhoneKeyPressed(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfPhoneKeyTyped(evt);
             }
         });
 
@@ -112,6 +121,11 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
         tfAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfAddressFocusLost(evt);
+            }
+        });
+        tfAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfAddressKeyPressed(evt);
             }
         });
 
@@ -168,7 +182,7 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
                                     .addComponent(lAddress))
                                 .addGap(43, 43, 43)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(notiAdress, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                                    .addComponent(notiAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                                     .addComponent(notiName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfPhone)
                                     .addComponent(tfAddress)
@@ -204,7 +218,7 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
                         .addComponent(tfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addComponent(notiAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(notiAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lCreatedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,13 +279,17 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
             notiName.setFont(notiName.getFont().deriveFont(Font.ITALIC));
             notiName.setForeground(Color.red);
             notiName.setText("Tên không được để trống");
-        }else{
+        }
+        else{
             notiName.setText("");
         }
+        tfCusName.setText(cusBUS.normalization(tfCusName.getText()));
+        checkNoti();
     }//GEN-LAST:event_tfCusNameFocusLost
 
     private void tfPhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPhoneFocusLost
         // Khi trỏ chuột vào chổ khác mà không thỏa điều kiện
+        
         if(cusBUS.normalization(tfPhone.getText()).isEmpty()){
             notiPhone.setFont(notiPhone.getFont().deriveFont(Font.ITALIC));
             notiPhone.setForeground(Color.red);
@@ -284,30 +302,49 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
         else{    
             notiPhone.setText("");
         }
+        checkNoti();
     }//GEN-LAST:event_tfPhoneFocusLost
 
     private void tfAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAddressFocusLost
         // Khi trỏ chuột vào chổ khác mà không thỏa điều kiện
         if(cusBUS.normalization(tfAddress.getText()).isEmpty()){
-            notiAdress.setFont(notiAdress.getFont().deriveFont(Font.ITALIC));
-            notiAdress.setForeground(Color.red);
-            notiAdress.setText("Địa chỉ không được để trống");
+            notiAddress.setFont(notiAddress.getFont().deriveFont(Font.ITALIC));
+            notiAddress.setForeground(Color.red);
+            notiAddress.setText("Địa chỉ không được để trống");
         }else{
-            notiAdress.setText("");
+            notiAddress.setText("");
         }
+        tfAddress.setText(cusBUS.normalization(tfAddress.getText()));
+        checkNoti();
     }//GEN-LAST:event_tfAddressFocusLost
 
-    private void tfPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPhoneKeyPressed
-        // Khi đánh từng kí tự
-        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9' || evt.getKeyCode() == evt.VK_BACK_SPACE){
-            tfPhone.setEditable(true);
-        }
-        else{
-            tfPhone.setEditable(false);
-        }
-    }//GEN-LAST:event_tfPhoneKeyPressed
+    private void tfCusNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCusNameKeyPressed
+        if(tfCusName.getText().length()!=0) notiName.setText("");
+        checkNoti();
+    }//GEN-LAST:event_tfCusNameKeyPressed
 
-    
+    private void tfPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPhoneKeyTyped
+        char c = evt.getKeyChar();
+            // Kiểm tra xem ký tự là số
+        if (!Character.isDigit(c)) {
+            // Nếu không phải là số, không cho phép nhập
+           evt.consume();
+        }
+        if(tfPhone.getText().length()!=0) notiPhone.setText("");
+        checkNoti();
+    }//GEN-LAST:event_tfPhoneKeyTyped
+
+    private void tfAddressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAddressKeyPressed
+        // TODO add your handling code here:
+        if(tfAddress.getText().length()!=0) notiAddress.setText("");
+        checkNoti();
+    }//GEN-LAST:event_tfAddressKeyPressed
+
+    public void checkNoti(){
+        if(notiName.getText().equals("") && notiPhone.getText().equals("") && notiAddress.getText().equals("")) 
+            btnConfirm.setEnabled(true);
+        else btnConfirm.setEnabled(false);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,7 +358,7 @@ public class CustomerInfoGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lID;
     private javax.swing.JLabel lIDInfo;
     private javax.swing.JLabel lPhone;
-    private javax.swing.JLabel notiAdress;
+    private javax.swing.JLabel notiAddress;
     private javax.swing.JLabel notiName;
     private javax.swing.JLabel notiPhone;
     private javax.swing.JTextField tfAddress;

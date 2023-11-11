@@ -51,7 +51,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="752" max="-2" attributes="0"/>
+                              <Component id="tfSearch" min="-2" pref="752" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="svgSearch" min="-2" pref="50" max="-2" attributes="0"/>
@@ -90,7 +90,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="svgSearch" pref="50" max="32767" attributes="0"/>
-                                  <Component id="jTextField1" pref="50" max="32767" attributes="0"/>
+                                  <Component id="tfSearch" pref="50" max="32767" attributes="0"/>
                               </Group>
                               <Component id="svgDelete" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="svgAdd" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
@@ -133,17 +133,20 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="tfSearch">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfSearchActionPerformed"/>
           </Events>
         </Component>
         <Component class="com.gui.SvgImage" name="svgSearch">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="svgSearchMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -160,6 +163,7 @@
         </Component>
         <Component class="com.gui.SvgImage" name="svgEdit">
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="svgEditMouseClicked"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="svgEditKeyPressed"/>
           </Events>
         </Component>

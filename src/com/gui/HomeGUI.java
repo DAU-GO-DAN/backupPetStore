@@ -36,6 +36,7 @@ public class HomeGUI extends javax.swing.JFrame {
         svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
         svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
     }
     
     
@@ -278,7 +279,7 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.repaint();
         CustomerGUI customerPanel = new CustomerGUI();
         mainPanel.setLayout(new GridLayout(1,1));
-        customerPanel.getData();
+        customerPanel.reloadData();
         mainPanel.add(customerPanel);
     }//GEN-LAST:event_lCustomerMouseClicked
 

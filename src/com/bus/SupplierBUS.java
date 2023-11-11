@@ -6,6 +6,7 @@ package com.bus;
 
 import com.dao.SupplierDAO;
 import com.dao.SupplierDTO;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -32,9 +33,72 @@ public class SupplierBUS {
         supList = supDAO.readData();
     }
     
+    public void add(SupplierDTO sup){
+        supDAO.add(sup);
+        supList.add(sup);
+    }
+    
     public void delete(String id){
         supDAO.delete(id);
         supList.removeIf(sup -> sup.getId().equalsIgnoreCase(id));
+    }
+    
+    public void edit(SupplierDTO supTemp, String id){
+        supDAO.edit(supTemp, id);
+        supList.removeIf(sup -> sup.getId().equals(id));
+        supList.add(supTemp);
+    }
+    
+    public ArrayList<SupplierDTO> searchByName(String name) {
+        ArrayList<SupplierDTO> filteredList = new ArrayList<>();
+        for (SupplierDTO sup : supList) {
+            if (sup.getName().toLowerCase().contains(name.toLowerCase())) {
+                filteredList.add(sup);
+            }
+        }
+        return filteredList;
+    }
+
+    
+    public SupplierDTO searchById(String id){
+        for (SupplierDTO sup : supList) {
+            if(sup.getId().toLowerCase().equals(id)) return sup;
+        }
+        return null;
+    }
+    
+    public DefaultTableModel getIdModel(String id){
+        SupplierDTO sup = searchById(id);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã nhà cung cấp");
+        model.addColumn("Tên nhà cung cấp");
+        model.addColumn("Số điện thoại");
+        model.addColumn("Địa chỉ");
+        Vector row = new Vector<>();
+        row.add(sup.getId());
+        row.add(sup.getName());
+        row.add(sup.getPhone());
+        row.add(sup.getAddress());
+        model.addRow(row);
+        return model;
+    }
+    
+    public DefaultTableModel getNameModel(String name){
+        ArrayList<SupplierDTO> a = searchByName(name);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Mã nhà cung cấp");
+        model.addColumn("Tên nhà cung cấp");
+        model.addColumn("Số điện thoại");
+        model.addColumn("Địa chỉ");
+        for (SupplierDTO sup : a) {
+            Vector row = new Vector<>();
+            row.add(sup.getId());
+            row.add(sup.getName());
+            row.add(sup.getPhone());
+            row.add(sup.getAddress());
+            model.addRow(row);
+        }
+        return model;
     }
     
     public DefaultTableModel getModel(){
@@ -55,19 +119,36 @@ public class SupplierBUS {
     }
     
     //Hàm auto generate ID
+//    public String generateSupplierID(){
+//        String id = null;
+//        String prefix = "NC";
+//        int num = 0;
+//        while(id==null){
+//            num++;
+//            if(num>=100) id = prefix + num;
+//            else if(num>=10) id = prefix + "0" + num;
+//            else if(num>0) id = prefix + "00" + num;
+//            if(supDAO.isUnique(id)) break;
+//            else id = null;
+//        }
+//        return id;
+//    }
+    
     public String generateSupplierID(){
-        String id = null;
-        String prefix = "NC";
-        int num = 0;
-        while(id==null){
-            num++;
-            if(num>=100) id = prefix + num;
-            else if(num>=10) id = prefix + "0" + num;
-            else if(num>0) id = prefix + "00" + num;
-            if(supDAO.isUnique(id)) break;
-            else id = null;
+        if (supList.isEmpty()) {
+            return "NC001"; // Trường hợp danh sách rỗng
         }
-        return id;
+        int nextID = 0;
+        int current = Integer.parseInt(supList.get(0).getId().substring(2));
+        for (int i = 1; i < supList.size(); i++) {
+            int next = Integer.parseInt(supList.get(i).getId().substring(2));
+            if (next - current > 1) {
+                nextID = current + 1;
+                break;
+            }
+            current = next;
+        }
+        return "NC" + String.format("%03d", nextID);
     }
     
     public String getName(String ID)
@@ -81,5 +162,29 @@ public class SupplierBUS {
             }
         }
         return result;
+    }
+    
+    public String normalization(String s){
+        String result = "";
+        if(s.length()>0){
+            s = s.trim().replaceAll("\\s+", " ");
+            String words[] = s.split(" ");
+            for (String word : words) {
+                result += word.substring(0, 1).toUpperCase() + word.substring(1) + " ";
+            }
+        }
+        return result.trim();
+    } 
+    
+    public boolean isAlphaString(String s){
+        return s.matches("[a-zA-Z]+");
+    }
+    
+    //Kiểm tra chuỗi không có tiếng việt
+    static public String normalizeString(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        normalized = normalized.replaceAll("[đĐ]", "d");
+        normalized = normalized.replaceAll("[^\\p{ASCII} \\t\\n\\x0B\\f\\r]", "");
+        return normalized;
     }
 }
