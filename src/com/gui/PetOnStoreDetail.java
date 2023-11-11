@@ -5,8 +5,18 @@
 package com.gui;
 
 import com.bus.BreedBUS;
+import com.bus.PetOnStoreBUS;
 import com.bus.SupplierTempBUS;
 import com.dao.PetOnStoreDTO;
+import com.dao.SupplierDTO;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +27,21 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
     /**
      * Creates new form PetOnStoreDetail
      */
+    private String imageUrl = "null";
+    private JFileChooser fileChooser = new JFileChooser();
+    private File selectedFile;
+    private String imagePath;
     ProductUI ui;
     PetOnStoreDTO pet;
     BreedBUS breed = new BreedBUS();
     SupplierTempBUS supplier = new SupplierTempBUS();
+    PetOnStoreBUS petBus = new PetOnStoreBUS();
+    Validator valid = new Validator();
+    private String supName;
     public PetOnStoreDetail(PetOnStoreDTO pet, ProductUI ui) {
         this.pet = pet;
         this.ui = ui;
+        this.imageUrl = pet.getImageUrl();
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -41,7 +59,6 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tfImportPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfSupplier = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfSoldPrice = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -56,8 +73,17 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfDescription = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        btnAddImage = new javax.swing.JButton();
+        lbImage = new javax.swing.JLabel();
+        btnDeleteImage = new javax.swing.JButton();
+        cbbSupplier = new javax.swing.JComboBox<>();
+        inputImPrice = new javax.swing.JButton();
+        inputSoldPrice = new javax.swing.JButton();
+        tfName = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,9 +99,6 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Bên cung cấp");
-
-        tfSupplier.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tfSupplier.setText("PetStore");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Giá bán");
@@ -125,16 +148,64 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         tfDescription.setLineWrap(true);
         tfDescription.setText(pet.getDescription());
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton1.setText("Xóa");
-
-        jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton2.setText("Lưu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnDelete.setText("Xóa");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
+
+        btnSave.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnSave.setText("Lưu");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel11.setText("Ảnh : ");
+
+        btnAddImage.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnAddImage.setText("Chọn ảnh");
+        btnAddImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddImageActionPerformed(evt);
+            }
+        });
+
+        lbImage.setBackground(new java.awt.Color(255, 255, 255));
+        lbImage.setOpaque(true);
+
+        btnDeleteImage.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnDeleteImage.setText("Xóa ảnh");
+        btnDeleteImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteImageActionPerformed(evt);
+            }
+        });
+
+        cbbSupplier.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        inputImPrice.setText("+");
+        inputImPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputImPriceActionPerformed(evt);
+            }
+        });
+
+        inputSoldPrice.setText("+");
+        inputSoldPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSoldPriceActionPerformed(evt);
+            }
+        });
+
+        tfName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel12.setText("Tên");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,74 +213,97 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(206, 206, 206)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(431, 431, 431))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tfSupplier)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfImportPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputImPrice))
+                        .addComponent(tfImportPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfColor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputSoldPrice))
+                        .addComponent(tfSoldPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfSoldPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChooseBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(159, 159, 159))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(206, 206, 206)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(431, 431, 431))
+                        .addComponent(btnChooseBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnAddImage)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDeleteImage))
+                        .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(85, 85, 85))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(inputSoldPrice))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfSoldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addComponent(tfSoldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addComponent(cbbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(inputImPrice))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfImportPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnChooseBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfImportPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -217,35 +311,125 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfColor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(btnAddImage)
+                            .addComponent(btnDeleteImage))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93))
         );
 
         lbTitle.setText(""+pet.getId() + " - "+pet.getName());
-        tfImportPrice.setText(""+pet.getImportPrice());
-        String supName = supplier.getName(pet.getSupplierId());
-        tfSupplier.setText(supName+"");
-        tfSoldPrice.setText(""+pet.getSoldPrice());
+        String importPriceString = valid.formatMoney(pet.getImportPrice());
+        tfImportPrice.setText(""+importPriceString);
+        String soldPriceString = valid.formatMoney(pet.getSoldPrice());
+        tfSoldPrice.setText(""+soldPriceString);
         cbbGender.setSelectedItem(pet.getGender()+"");
         String breedName = breed.getBreedName(pet.getBreedId());
         tfBreed.setText(breedName);
         tfColor.setText(pet.getColor());
         tfWeight.setText(pet.getWeight()+"");
+        setImage();
+        loadSup();
+        supName = supplier.getName(pet.getSupplierId());
+        cbbSupplier.setSelectedItem(supName+"");
+        tfName.setText(pet.getName()+"");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if(!imageUrl.equals(pet.getImageUrl()))
+        {
+            if(imageUrl.equals("null"))
+            {
+                pet.setImageUrl(imageUrl);
+            }
+            else{
+                pet.setImageUrl(imageUrl);
+                File sourceImageFile = new File(imagePath);
+                File destinationImageFile = new File("src/com/image/" + selectedFile.getName());
+                try {
+                    Files.copy(sourceImageFile.toPath(), destinationImageFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(!tfName.getText().equalsIgnoreCase(pet.getName()))
+        {
+            pet.setName(tfName.getText()+"");
+        }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        Long importPrice = valid.convertStringToLong(tfImportPrice.getText());
+        if(importPrice != pet.getImportPrice())
+        {
+            pet.setImportPrice(importPrice);
+        }
+        Long soldPrice = valid.convertStringToLong(tfSoldPrice.getText());
+        if(soldPrice != pet.getSoldPrice())
+        {
+            pet.setSoldPrice(soldPrice);
+        }
+        
+        if(!tfDescription.getText().equalsIgnoreCase(pet.getDescription()))
+        {
+            pet.setDescription(tfDescription.getText()+"");
+        }
+        
+        
+        if(!cbbSupplier.getSelectedItem().toString().equalsIgnoreCase(supName))
+        {
+            String newSupID = supplier.getID(cbbSupplier.getSelectedItem().toString());
+            pet.setSupplierId(newSupID);
+        }
+        
+        if(!cbbGender.getSelectedItem().toString().equalsIgnoreCase(pet.getGender()))
+        {
+            pet.setGender(cbbGender.getSelectedItem().toString());
+        }
+        
+        String breedName = breed.getBreedName(pet.getBreedId());
+        if(!breedName.equalsIgnoreCase(tfBreed.getText()))
+        {
+            String newBreedID = breed.getID(tfBreed.getText());
+            pet.setBreedId(newBreedID);
+        }
+        
+        if(!tfColor.getText().equalsIgnoreCase(pet.getColor()))
+        {
+            pet.setColor(tfColor.getText());
+        }
+        
+        int currentWeight = Integer.parseInt(tfWeight.getText());
+        if(currentWeight != pet.getWeight())
+        {
+            pet.setWeight(currentWeight);
+        }
+        
+        
+        petBus.edit(pet);
+        loadInfo();
+        ui.refreshTable();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnChooseBreedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseBreedActionPerformed
         // TODO add your handling code here:
@@ -254,9 +438,116 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
         breedChose.setVisible(true);
     }//GEN-LAST:event_btnChooseBreedActionPerformed
 
+    private void inputImPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputImPriceActionPerformed
+        // TODO add your handling code here:
+        PriceInput input = new PriceInput(tfImportPrice);
+        input.setVisible(true);
+    }//GEN-LAST:event_inputImPriceActionPerformed
+
+    private void inputSoldPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSoldPriceActionPerformed
+        // TODO add your handling code here:
+        PriceInput input = new PriceInput(tfSoldPrice);
+        input.setVisible(true);
+    }//GEN-LAST:event_inputSoldPriceActionPerformed
+
+    private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
+        // TODO add your handling code here:
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            // Lấy đường dẫn của tệp hình ảnh được chọn
+            selectedFile = fileChooser.getSelectedFile();
+            imagePath = selectedFile.getAbsolutePath();
+            
+            // Thực hiện các bước tiếp theo ở đây
+            
+            imageUrl = selectedFile.getName()+"";
+            ImageIcon imageIcon = new ImageIcon("" +imagePath);
+            Image image = imageIcon.getImage();
+            int labelWidth = lbImage.getWidth();
+            int labelHeight = lbImage.getHeight();
+            Image newImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            ImageIcon newImageIcon = new ImageIcon(newImage);
+            lbImage.setIcon(newImageIcon);
+        }
+    }//GEN-LAST:event_btnAddImageActionPerformed
+
+    private void btnDeleteImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteImageActionPerformed
+        // TODO add your handling code here:
+        imageUrl = "null";
+        lbImage.setIcon(null);
+    }//GEN-LAST:event_btnDeleteImageActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        
+        int result = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu thay đổi ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if( result == JOptionPane.YES_OPTION){
+            petBus.delete(pet.getId());
+            this.dispose();
+            ui.refreshTable();
+        }
+        else{
+            
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void loadInfo()
+    {
+        lbTitle.setText(""+pet.getId() + " - "+pet.getName());
+        tfName.setText(pet.getName()+"");
+        
+        String soldPriceString = valid.formatMoney(pet.getSoldPrice());
+        tfSoldPrice.setText(""+soldPriceString);
+        
+        String importPriceString = valid.formatMoney(pet.getImportPrice());
+        tfImportPrice.setText(""+importPriceString);
+        
+        cbbGender.setSelectedItem(pet.getGender()+"");
+        
+        supName = supplier.getName(pet.getSupplierId());
+        cbbSupplier.setSelectedItem(supName+"");
+        
+        String breedName = breed.getBreedName(pet.getBreedId());
+        tfBreed.setText(breedName);
+        
+        tfWeight.setText(pet.getWeight()+"");
+        
+        tfColor.setText(pet.getColor());
+        
+        tfDescription.setText(pet.getDescription());
+    }
+    
     public void setBreed(String breed)
     {
         tfBreed.setText(breed+"");
+    }
+    
+    public void loadSup()
+    {
+        for(SupplierDTO sup : supplier.supList)
+        {
+            cbbSupplier.addItem(sup.getName());
+        }
+    }
+    
+    public void setImage()
+    {
+        int labelWidth = 345;
+        int labelHeight = 176;
+        if(pet.getImageUrl().equals("null"))
+        {
+            
+        }
+        else{
+            
+            String imageUrl = pet.getImageUrl();
+            ImageIcon imageIcon = new ImageIcon("src/com/image/" + imageUrl);
+            Image image = imageIcon.getImage();
+            Image newImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            ImageIcon newImageIcon = new ImageIcon(newImage);
+            lbImage.setIcon(newImageIcon);
+        }
     }
     
     /**
@@ -295,11 +586,18 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddImage;
     private javax.swing.JButton btnChooseBreed;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteImage;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbbGender;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> cbbSupplier;
+    private javax.swing.JButton inputImPrice;
+    private javax.swing.JButton inputSoldPrice;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -308,13 +606,14 @@ public class PetOnStoreDetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbImage;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JTextField tfBreed;
     private javax.swing.JTextField tfColor;
     private javax.swing.JTextArea tfDescription;
     private javax.swing.JTextField tfImportPrice;
+    private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfSoldPrice;
-    private javax.swing.JTextField tfSupplier;
     private javax.swing.JTextField tfWeight;
     // End of variables declaration//GEN-END:variables
 }

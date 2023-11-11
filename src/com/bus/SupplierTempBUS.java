@@ -41,4 +41,16 @@ public class SupplierTempBUS {
         return result;
     }
     
+    public String getID(String name)
+    {
+        String result = "";
+        for(SupplierDTO supplier : supList)
+        {
+            if(name.equalsIgnoreCase(supplier.getName()))
+            {
+                result = supplier.getId();
+            }
+        }
+        return result;
+    }
 }

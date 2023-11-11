@@ -70,6 +70,19 @@ public class BreedBUS {
         return result;
     }
     
+    public String getID(String name)
+    {
+        String result = "";
+        for(BreedDTO breed : breedList)
+        {
+            if(breed.getName().equalsIgnoreCase(name))
+            {
+                result = breed.getId();
+            }
+        }
+        return result;
+    }
+    
     public ArrayList<BreedDTO> search(String text)
     {
         ArrayList<BreedDTO> matchingList = new ArrayList<>();

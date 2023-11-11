@@ -35,33 +35,63 @@ public class PetOnStoreDAO {
     
     public void add(PetOnStoreDTO pet)
     {
-        String qry = "insert into PetOnStore value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try(PreparedStatement pstmt = conn.prepareStatement(qry)){
+        //stmt
+        try{
+            String qry = "INSERT INTO PetOnStore VALUES ("
+                    + "'" + pet.getId() + "', "
+                    + "N'" + pet.getName() + "', "
+                    + pet.getSoldPrice() + ", "
+                    + pet.getImportPrice() + ", "
+                    + "N'" + pet.getDescription() + "', "
+                    + "'" + pet.getSupplierId() + "', "
+                    + "N'" + pet.getGender() + "', "
+                    + "'" + pet.getBreedId() + "', "
+                    + pet.getWeight() + ", "
+                    + "N'" + pet.getColor() + "', "
+                    + "'" + pet.getImageUrl() + "'"
+                    + ")";
+            stmt = conn.createStatement();
+            int rowAffected = stmt.executeUpdate(qry);
+            if(rowAffected == 1){
+                JOptionPane.showMessageDialog(null, "Thêm thành công");
+            }else{
+                JOptionPane.showMessageDialog(null, "Thêm không thành công");
+            }        
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Thêm không thành công");
+        }
         
-            pstmt.setString(1, pet.getId());
-            pstmt.setString(2, pet.getName());
-            pstmt.setLong(3, pet.getSoldPrice());
-            pstmt.setLong(4, pet.getImportPrice());
-            pstmt.setString(5, pet.getDescription());
-            pstmt.setString(6, pet.getSupplierId());
-            pstmt.setString(7, pet.getGender());
-            pstmt.setString(8, pet.getBreedId());
-            pstmt.setInt(9, pet.getWeight());
-            pstmt.setString(10, pet.getColor());
-            pstmt.setString(11, pet.getImageUrl());
-            
-            
-            int rowsAffected = pstmt.executeUpdate(qry);
-            if (rowsAffected == 1) {
-                JOptionPane.showMessageDialog(null, "Thêm thú cưng thành công!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Thêm thú cưng thất bại!");
-            }
-        }
-        catch(SQLException ex)
-        {
-            
-        }
+        
+        
+        //pstmt
+//        String qry = "insert into PetOnStore value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        try(PreparedStatement pstmt = conn.prepareStatement(qry)){
+//        
+//            pstmt.setString(1, pet.getId());
+//            pstmt.setString(2, pet.getName());
+//            pstmt.setLong(3, pet.getSoldPrice());
+//            pstmt.setLong(4, pet.getImportPrice());
+//            pstmt.setString(5, pet.getDescription());
+//            pstmt.setString(6, pet.getSupplierId());
+//            pstmt.setString(7, pet.getGender());
+//            pstmt.setString(8, pet.getBreedId());
+//            pstmt.setInt(9, pet.getWeight());
+//            pstmt.setString(10, pet.getColor());
+//            pstmt.setString(11, pet.getImageUrl());
+//            
+//            
+//            int rowsAffected = pstmt.executeUpdate(qry);
+//            if (rowsAffected == 1) {
+//                JOptionPane.showMessageDialog(null, "Thêm thú cưng thành công!");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Thêm thú cưng thất bại!");
+//            }
+//        }
+//        catch(SQLException ex)
+//        {
+//            
+//        }
     }
     
     public void delete(String ID)
@@ -74,7 +104,7 @@ public class PetOnStoreDAO {
         }
         catch (SQLException ex)
         {
-            
+            JOptionPane.showMessageDialog(null, "Xóa thú cưng thất bại!");
         }
     }
     
@@ -99,7 +129,7 @@ public class PetOnStoreDAO {
         }
         catch (SQLException ex)
         {
-            
+//            JOptionPane.showMessageDialog(null, "Chỉnh sửa thú cưng thất bại!");
         }
     }
     

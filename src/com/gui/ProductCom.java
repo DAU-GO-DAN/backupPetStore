@@ -9,6 +9,8 @@ import com.dao.PetProductDTO;
 import com.dao.SoldPetDTO;
 import com.dao.ProductDTO;
 import java.awt.Dimension;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,6 +23,7 @@ public class ProductCom extends javax.swing.JPanel {
      */
     ProductUI ui;
     ProductDTO product;
+    Validator valid = new Validator();
     public ProductCom(ProductDTO product, ProductUI ui) {
         this.product = product;
         this.ui = ui;
@@ -91,7 +94,9 @@ public class ProductCom extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        lbSoldPrice.setText(""+product.getSoldPrice());
+        setImage();
+        String price = valid.formatMoney(product.getSoldPrice());
+        lbSoldPrice.setText(""+price);
         lbNameID.setText(""+product.getName()+ " "+product.getId());
     }// </editor-fold>//GEN-END:initComponents
 
@@ -106,6 +111,23 @@ public class ProductCom extends javax.swing.JPanel {
         
     }//GEN-LAST:event_svgEditMouseClicked
 
+    public void setImage()
+    {
+        if(product.getImageUrl().equals("null"))
+        {
+            
+        }
+        else{
+            int labelWidth = 345;
+            int labelHeight = 176;
+            String imageUrl = product.getImageUrl();
+            ImageIcon imageIcon = new ImageIcon("src/com/image/" + imageUrl);
+            Image image = imageIcon.getImage();
+            Image newImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            ImageIcon newImageIcon = new ImageIcon(newImage);
+            lbImage.setIcon(newImageIcon);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbImage;
