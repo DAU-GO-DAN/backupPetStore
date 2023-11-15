@@ -67,7 +67,7 @@ public class SupplierDAO {
     public void edit(SupplierDTO sup ,String id){
         try{
             String qry = "update Supplier set "
-                    + "name = '" + sup.getName()+ "', "
+                    + "name = N'" + sup.getName()+ "', "
                     + "phone = N'" + sup.getPhone()+ "', "
                     + "address = N'" + sup.getAddress()+ "'"
                     + "where id = '" + id + "'";

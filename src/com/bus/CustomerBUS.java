@@ -40,7 +40,7 @@ public class CustomerBUS {
     public ArrayList<CustomerDTO> searchByName(String name) {
         ArrayList<CustomerDTO> filteredList = new ArrayList<>();
         for (CustomerDTO cus : cusList) {
-            if (normalizeString(cus.getCusName()).toLowerCase().contains(name.toLowerCase())) {
+            if (normalizeString(cus.getCusName()).toLowerCase().contains(name)) {
                 filteredList.add(cus);
             }
         }
@@ -51,7 +51,7 @@ public class CustomerBUS {
     
     public CustomerDTO searchByPhone(String phone){
         for (CustomerDTO cus : cusList) {
-            if(cus.getPhone().startsWith(phone)) return cus;
+            if(normalization(normalizeString(cus.getPhone())).startsWith(phone)) return cus;
         }
         return null;
         
@@ -162,10 +162,18 @@ public class CustomerBUS {
     }
     
     //Kiểm tra chuỗi không có tiếng việt
-    static public String normalizeString(String input) {
+    public String normalizeString(String input) {
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
-        normalized = normalized.replaceAll("[đĐ]", "d");
+        normalized = normalized.replaceAll("[Đ]", "D");
+        normalized = normalized.replaceAll("[đ]", "d");
         normalized = normalized.replaceAll("[^\\p{ASCII} \\t\\n\\x0B\\f\\r]", "");
         return normalized;
     }
+    
+//    public static void main(String[] args) {
+//        CustomerDTO cus = new CustomerDTO();
+//        cus.setCusName("Huỳnh Văn Đân");
+//        System.out.println(normalizeString(cus.getCusName()));
+//        System.out.println(normalizeString(normalization("Huỳnh Văn Đân")));
+//    }
 }

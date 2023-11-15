@@ -52,7 +52,7 @@ public class SupplierBUS {
     public ArrayList<SupplierDTO> searchByName(String name) {
         ArrayList<SupplierDTO> filteredList = new ArrayList<>();
         for (SupplierDTO sup : supList) {
-            if (sup.getName().toLowerCase().contains(name.toLowerCase())) {
+            if (normalizeString(sup.getName()).toLowerCase().contains(name)) {
                 filteredList.add(sup);
             }
         }
@@ -62,7 +62,7 @@ public class SupplierBUS {
     
     public SupplierDTO searchById(String id){
         for (SupplierDTO sup : supList) {
-            if(sup.getId().toLowerCase().equals(id)) return sup;
+            if(sup.getId().equalsIgnoreCase(id)) return sup;
         }
         return null;
     }
@@ -119,36 +119,19 @@ public class SupplierBUS {
     }
     
     //Hàm auto generate ID
-//    public String generateSupplierID(){
-//        String id = null;
-//        String prefix = "NC";
-//        int num = 0;
-//        while(id==null){
-//            num++;
-//            if(num>=100) id = prefix + num;
-//            else if(num>=10) id = prefix + "0" + num;
-//            else if(num>0) id = prefix + "00" + num;
-//            if(supDAO.isUnique(id)) break;
-//            else id = null;
-//        }
-//        return id;
-//    }
-    
     public String generateSupplierID(){
-        if (supList.isEmpty()) {
-            return "NC001"; // Trường hợp danh sách rỗng
+        String id = null;
+        String prefix = "NC";
+        int num = 0;
+        while(id==null){
+            num++;
+            if(num>=100) id = prefix + num;
+            else if(num>=10) id = prefix + "0" + num;
+            else if(num>0) id = prefix + "00" + num;
+            if(supDAO.isUnique(id)) break;
+            else id = null;
         }
-        int nextID = 0;
-        int current = Integer.parseInt(supList.get(0).getId().substring(2));
-        for (int i = 1; i < supList.size(); i++) {
-            int next = Integer.parseInt(supList.get(i).getId().substring(2));
-            if (next - current > 1) {
-                nextID = current + 1;
-                break;
-            }
-            current = next;
-        }
-        return "NC" + String.format("%03d", nextID);
+        return id;
     }
     
     public String getName(String ID)
@@ -176,12 +159,13 @@ public class SupplierBUS {
         return result.trim();
     } 
     
-    public boolean isAlphaString(String s){
-        return s.matches("[a-zA-Z]+");
+    public boolean isAlphaString(String s) {
+    return s.matches("[a-zA-Z\\s]+");
     }
+
     
     //Kiểm tra chuỗi không có tiếng việt
-    static public String normalizeString(String input) {
+    public String normalizeString(String input) {
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
         normalized = normalized.replaceAll("[đĐ]", "d");
         normalized = normalized.replaceAll("[^\\p{ASCII} \\t\\n\\x0B\\f\\r]", "");

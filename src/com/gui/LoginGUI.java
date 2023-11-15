@@ -15,7 +15,7 @@ public class LoginGUI extends javax.swing.JFrame {
      */
     public LoginGUI() {
         initComponents();
-        svgLogoPetStore.setSVGImage("com/image/logohinh.svg", 200, 190);
+        svgLogoPetStore.setSVGImage("com/image/logohinh.svg", 170, 180);
         svgTitle.setSVGImage("com/image/Logo.svg", 350, 90);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -44,9 +44,9 @@ public class LoginGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnLogin.setBackground(new java.awt.Color(255, 204, 102));
+        btnLogin.setBackground(new java.awt.Color(255, 238, 206));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogin.setText("Đăng nhập");
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
@@ -67,8 +67,8 @@ public class LoginGUI extends javax.swing.JFrame {
         lpassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lpassword.setText("Mật khẩu");
 
-        tfUsername.setBackground(new java.awt.Color(255, 204, 102));
-        tfUsername.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        tfUsername.setBackground(new java.awt.Color(255, 204, 153));
+        tfUsername.setBorder(null);
         tfUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfUsernameActionPerformed(evt);
@@ -80,7 +80,7 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
 
-        tfPassword.setBackground(new java.awt.Color(255, 204, 102));
+        tfPassword.setBackground(new java.awt.Color(255, 204, 153));
         tfPassword.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         tfPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +103,7 @@ public class LoginGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lpassword)
-                    .addComponent(tfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lusername)
                     .addComponent(tfPassword)
                     .addComponent(lusernameWarn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,7 +128,7 @@ public class LoginGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lusername)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lusernameWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
@@ -139,10 +139,10 @@ public class LoginGUI extends javax.swing.JFrame {
                         .addComponent(lpasswordWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(svgLogoPetStore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(svgLogoPetStore, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
                 .addGap(16, 16, 16)
                 .addComponent(btnLogin)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -6,6 +6,7 @@ package com.gui;
 
 import com.bus.CustomerBUS;
 import com.dao.AccountDTO;
+import java.awt.Color;
 import static java.awt.Color.black;
 import static java.awt.Color.red;
 import java.awt.Font;
@@ -39,7 +40,7 @@ public class HomeGUI extends javax.swing.JFrame {
         svgLogo.setSVGImage("com/image/logohinh.svg", 80, 80);
         svgLogout.setSVGImage("com/image/logout.svg", 30, 30);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
+//        setResizable(false);
     }
     
     
@@ -70,7 +71,7 @@ public class HomeGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pNavigator.setBackground(new java.awt.Color(255, 153, 0));
+        pNavigator.setBackground(new java.awt.Color(255, 102, 0));
         pNavigator.setPreferredSize(new java.awt.Dimension(1280, 100));
 
         lproduct.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
@@ -311,7 +312,7 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.repaint();
         CustomerGUI customerPanel = new CustomerGUI();
         mainPanel.setLayout(new GridLayout(1,1));
-        customerPanel.getData();
+        customerPanel.reloadData();
         mainPanel.add(customerPanel);
     }//GEN-LAST:event_lAccountMouseClicked
 
@@ -331,7 +332,10 @@ public class HomeGUI extends javax.swing.JFrame {
         mainPanel.removeAll();
         mainPanel.revalidate();
         mainPanel.repaint();
-
+        SupplierGUI supplierPanel = new SupplierGUI();
+        mainPanel.setLayout(new GridLayout(1,1));
+        supplierPanel.reloadData();
+        mainPanel.add(supplierPanel);
 
     }//GEN-LAST:event_lSupplierMouseClicked
 
@@ -365,10 +369,10 @@ public class HomeGUI extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e){
                     for(JLabel label : labelList){
-                        label.setForeground(black);
+                        label.setForeground(Color.black);
                         label.setFont(label.getFont().deriveFont(-1));
                     }
-                    label.setForeground(red);
+                    label.setForeground(Color.white);
                     label.setFont(label.getFont().deriveFont(Font.BOLD));
                 }
             });
